@@ -26,12 +26,12 @@ class MainApp extends Component {
         <main>
           <div className="container-fluid">
             <Switch>
-              <Route path={`${match.url}/home`} component={home} />
-              <Route path={`${match.url}/data`} component={data} />
-              <Route path={`${match.url}/api`} component={api} />
-              <Route path={`${match.url}/methods`} component={methods} />
-              <Route path={`${match.url}/about`} component={about} />
-              <Redirect to="/error" />
+              <Route path={`/home`} component={home} />
+              <Route path={`/data`} component={data} />
+              <Route path={`/api`} component={api} />
+              <Route path={`/methods`} component={methods} />
+              <Route path={`/about`} component={about} />
+              <Redirect to="/home" />
             </Switch>
           </div>
         </main>

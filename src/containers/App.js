@@ -37,7 +37,7 @@ class App extends Component {
         >
           <Fragment>
             <Switch>
-              <Route path={`${match.url}app`} component={MainRoute} />
+              <Route path={`${match.url}`} component={MainRoute} />
               <Route path={`/error`} component={error} />
               <Redirect to="/error" />
             </Switch>

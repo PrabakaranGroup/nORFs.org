@@ -91,7 +91,6 @@ class Sidebar extends Component {
     } else if (windowWidth < subHiddenBreakpoint) {
       nextClasses = nextClasses.filter(x => x != "menu-mobile");
       if (
-        nextClasses.includes("menu-default") &&
         !nextClasses.includes("menu-sub-hidden")
       ) {
         nextClasses.push("menu-sub-hidden");
@@ -99,7 +98,6 @@ class Sidebar extends Component {
     } else {
       nextClasses = nextClasses.filter(x => x != "menu-mobile");
       if (
-        nextClasses.includes("menu-default") &&
         nextClasses.includes("menu-sub-hidden")
       ) {
         nextClasses = nextClasses.filter(x => x != "menu-sub-hidden");
@@ -118,13 +116,12 @@ class Sidebar extends Component {
       ? containerClassnames.split(" ").filter(x => x != "")
       : "";
 
-    if (currentClasses.includes("menu-sub-hidden") && menuClickCount == 3) {
-      this.props.setContainerClassnames(2, containerClassnames);
-    } else if (
-      currentClasses.includes("menu-hidden") ||
-      currentClasses.includes("menu-mobile")
-    ) {
+    if (currentClasses.includes("menu-sub-hidden")) {
       this.props.setContainerClassnames(0, containerClassnames);
+    } else if (
+      currentClasses.includes("menu-hidden")
+    ) {
+      this.props.setContainerClassnames(1, containerClassnames);
     }
   }
 
@@ -211,22 +208,14 @@ class Sidebar extends Component {
 
     if (!currentClasses.includes("menu-mobile")) {
       if (
-        currentClasses.includes("menu-sub-hidden") &&
-        (menuClickCount == 2 || menuClickCount == 0)
-      ) {
-        this.props.setContainerClassnames(3, containerClassnames);
-      } else if (
-        currentClasses.includes("menu-hidden") &&
-        (menuClickCount == 1 || menuClickCount == 3)
-      ) {
-        this.props.setContainerClassnames(2, containerClassnames);
-      } else if (
-        currentClasses.includes("menu-default") &&
-        !currentClasses.includes("menu-sub-hidden") &&
-        (menuClickCount == 1 || menuClickCount == 3)
+        currentClasses.includes("menu-sub-hidden") 
       ) {
         this.props.setContainerClassnames(0, containerClassnames);
-      }
+      } else if (
+        currentClasses.includes("menu-hidden") 
+      ) {
+        this.props.setContainerClassnames(1, containerClassnames);
+      } 
     } else {
       this.props.addContainerClassname(
         "sub-show-temporary",
@@ -260,7 +249,7 @@ class Sidebar extends Component {
                   })}
                 >
                   <NavLink
-                    to="/app/home"
+                    to="/home"
                   >
                     <i className="iconsmind-ID-3" />{" "}
                     <IntlMessages id="Home" />
@@ -272,7 +261,7 @@ class Sidebar extends Component {
                   })}
                 >
                   <NavLink
-                    to="/app/data"
+                    to="/data"
                   >
                     <i className="iconsmind-DNA-2" />{" "}
                     <IntlMessages id="Data" />
@@ -284,7 +273,7 @@ class Sidebar extends Component {
                   })}
                 >
                   <NavLink
-                    to="/app/api"
+                    to="/api"
                   >
                     <i className="iconsmind-Communication-Tower2" />{" "}
                     <IntlMessages id="API" />
@@ -296,7 +285,7 @@ class Sidebar extends Component {
                   })}
                 >
                 <NavLink
-                  to="/app/methods"
+                  to="/methods"
                 >
                   <i className="iconsmind-Gears-2" />{" "}
                   <IntlMessages id="Methods" />
@@ -308,7 +297,7 @@ class Sidebar extends Component {
                   })}
                 >
                 <NavLink
-                  to="/app/about"
+                  to="/about"
                 >
                   <i className="iconsmind-University" />{" "}
                   <IntlMessages id="About" />
@@ -319,41 +308,7 @@ class Sidebar extends Component {
           </div>
         </div>
 
-        <div className="sub-menu">
-          <div className="scroll">
-            <PerfectScrollbar
-              option={{ suppressScrollX: true, wheelPropagation: false }}
-            >
-              <Nav
-                className={classnames({
-                  "d-block": ((this.state.selectedParentMenu == "gogo" && this.state.viewingParentMenu=="" )|| this.state.viewingParentMenu=="gogo")
-                })}
-                data-parent="gogo"
-              >
-                <NavItem>
-                  <NavLink to="/app/gogo/start">
-                    <i className="simple-icon-paper-plane" />{" "}
-                    <IntlMessages id="menu.start" />
-                  </NavLink>
-                </NavItem>
-              </Nav>
-
-              <Nav
-                className={classnames({
-                  "d-block": ((this.state.selectedParentMenu == "second-menu" && this.state.viewingParentMenu=="" )|| this.state.viewingParentMenu=="second-menu")
-                })}
-                data-parent="second-menu"
-              >
-                <NavItem>
-                  <NavLink to="/app/second-menu/second">
-                    <i className="simple-icon-paper-plane" />{" "}
-                    <IntlMessages id="menu.second" />
-                  </NavLink>
-                </NavItem>
-              </Nav>
-            </PerfectScrollbar>
-          </div>
-        </div>
+        
       </div>
     );
   }
