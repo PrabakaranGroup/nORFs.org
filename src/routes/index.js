@@ -4,9 +4,11 @@ import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 import TopNav from "Containers/TopNav";
 import Sidebar from "Containers/Sidebar";
 
-import gogo from "./gogo";
-import secondMenu from "./second-menu";
-import thirdSingle from "./third-single";
+import home from "./home";
+import data from "./data";
+import api from "./api";
+import methods from "./methods";
+import about from "./about";
 
 import { connect } from "react-redux";
 
@@ -24,9 +26,11 @@ class MainApp extends Component {
         <main>
           <div className="container-fluid">
             <Switch>
-              <Route path={`${match.url}/gogo`} component={gogo} />
-              <Route path={`${match.url}/second-menu`} component={secondMenu} />
-              <Route path={`${match.url}/third-single`} component={thirdSingle} />
+              <Route path={`${match.url}/home`} component={home} />
+              <Route path={`${match.url}/data`} component={data} />
+              <Route path={`${match.url}/api`} component={api} />
+              <Route path={`${match.url}/methods`} component={methods} />
+              <Route path={`${match.url}/about`} component={about} />
               <Redirect to="/error" />
             </Switch>
           </div>

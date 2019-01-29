@@ -11,11 +11,7 @@ export default class extends Component {
       <Fragment>
         <Row>
           <Colxx xxs="12">
-            <BreadcrumbContainer
-              heading={<IntlMessages id="menu.second" />}
-              match={this.props.match}
-            />
-            <Separator className="mb-5" />
+            methods work
           </Colxx>
         </Row>
         {

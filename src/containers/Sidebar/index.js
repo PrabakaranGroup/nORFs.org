@@ -260,8 +260,7 @@ class Sidebar extends Component {
                   })}
                 >
                   <NavLink
-                    to="/app/hp,e"
-                    onClick={e => this.openSubMenu(e, "home")}
+                    to="/app/home"
                   >
                     <i className="iconsmind-ID-3" />{" "}
                     <IntlMessages id="Home" />
@@ -273,8 +272,7 @@ class Sidebar extends Component {
                   })}
                 >
                   <NavLink
-                    to="/app/gogo"
-                    onClick={e => this.openSubMenu(e, "gogo")}
+                    to="/app/data"
                   >
                     <i className="iconsmind-DNA-2" />{" "}
                     <IntlMessages id="Data" />
@@ -286,8 +284,7 @@ class Sidebar extends Component {
                   })}
                 >
                   <NavLink
-                    to="/app/second-menu"
-                    onClick={e => this.openSubMenu(e, "second-menu")}
+                    to="/app/api"
                   >
                     <i className="iconsmind-Communication-Tower2" />{" "}
                     <IntlMessages id="API" />
@@ -300,7 +297,6 @@ class Sidebar extends Component {
                 >
                 <NavLink
                   to="/app/methods"
-                  onClick={e => this.openSubMenu(e, "methods")}
                 >
                   <i className="iconsmind-Gears-2" />{" "}
                   <IntlMessages id="Methods" />
@@ -313,7 +309,6 @@ class Sidebar extends Component {
                 >
                 <NavLink
                   to="/app/about"
-                  onClick={e => this.openSubMenu(e, "about")}
                 >
                   <i className="iconsmind-University" />{" "}
                   <IntlMessages id="About" />
