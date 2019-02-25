@@ -1,0 +1,75 @@
+.dataChild {
+  height: 100px;
+  width: 100%;
+  margin-bottom: 5px;
+  background-color: #f4f4f4;
+  box-shadow: 0px 1px 5px #888888;
+  display: float;
+}
+
+.dataChild:hover {
+  background-color: #ebefee;
+}
+
+.description {
+  font-size:  14px;
+}
+
+.headBar {
+  padding: 10px 25px 5px 25px;
+  margin: auto;
+  margin-bottom: 20px;
+  box-shadow: 0px 1px 5px #888888;
+  background-color: #f4f4f4;
+}
+
+.loader {
+  padding: 200px;
+}
+
+.divFadeIn {
+  animation: fadeInDiv 1.3s;
+  -webkit-animation: fadeInDiv 1.3s;
+}
+
+@keyframes fadeInDiv {
+  from{opacity: 0 ;}
+  to{opacity: 1 ;}
+}
+
+@-webkit-keyframes fadeInDiv {
+  from{opacity : 0;}
+  to{opacity : 1;}
+}
+
+.iconFadeIn {
+  animation: fadeInIcon 1.5s;
+  -webkit-animation: fadeInIcon 1.5s;
+}
+
+@keyframes fadeInIcon {
+  from{opacity: 0 ;}
+  to{opacity: 1 ;}
+}
+
+@-webkit-keyframes fadeInIcon {
+  from{opacity : 0;}
+  to{opacity : 1;}
+}
+
+.tileText {
+  padding-left: 10px;
+  padding-top: 15px;
+  font-weight: 600;
+  color: #000;
+}
+
+.upperTileText {
+  float: left;
+  padding: 15px;
+  color: #000;
+}
+
+a:link {
+  text-decoration: none!important;
+}
