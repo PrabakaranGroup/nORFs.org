@@ -42,7 +42,6 @@ export const clickOnMobileMenu = (strCurrentClasses) => {
 
 export const setContainerClassnames = (clickIndex, strCurrentClasses) => {
     const currentClasses = strCurrentClasses ? strCurrentClasses.split(' ').filter(x => x != '') : '';
-    console.log(currentClasses);
     let nextClasses = '';                                           
     
     nextClasses = 'menu-sub-hidden';

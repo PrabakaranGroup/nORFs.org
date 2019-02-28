@@ -27,6 +27,10 @@
   padding: 200px;
 }
 
+.middlesSearch {
+	margin-left: 30%;
+}
+
 .divFadeIn {
   animation: fadeInDiv 1.3s;
   -webkit-animation: fadeInDiv 1.3s;
