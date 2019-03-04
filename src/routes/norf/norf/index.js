@@ -17,7 +17,7 @@ export default class extends Component {
   }
 
  componentDidMount() {
-    fetch('http://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/feature/transcript/search?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json&region=1%3A6635137-6635325')
+    fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/feature/transcript/search?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json&region=1%3A6635137-6635325')
     .then(response =>  response.json())
     .then(apiData => {
        //console.log(JSON.stringify(apiData))
@@ -29,11 +29,16 @@ export default class extends Component {
 
   render() {
     console.log(this.state.apiData);
+    let apiTemp = JSON.stringify(this.state.apiData);
+    console.log(apiTemp);
+    let apiStore = <p>{apiTemp}</p>;
+
+
     return (
       <Fragment>
         <Row>
           <Colxx xxs="12">
-            norfs works
+            {apiStore}
           </Colxx>
         </Row>
         {

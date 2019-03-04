@@ -261,7 +261,7 @@ class Sidebar extends Component {
                   })}
                 >
                   <NavLink
-                    to="/data"
+                    to="/entries"
                   >
                     <i className="iconsmind-DNA-2" />{" "}
                     <IntlMessages id="Data" />

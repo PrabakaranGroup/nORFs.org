@@ -28,15 +28,16 @@ export default class extends Component {
     this.state = {
       entries    : [],
       loading    : true,
-      start      : "",
-      stop       : "",
+      start      : 3425241,
+      end       : 3625248,
       chr        : "14"
     }
   }
 
   componentWillMount(){
     let entries = [];
-    firebase.firestore().collection("nORFs").where("chr", "==", this.state.chr).get().then(function(data) {
+    firebase.firestore().collection("nORFs").where("chr", "==", this.state.chr).limit(20)
+                                            .get().then(function(data) {
       data.forEach(function(doc) {
           entries.push(doc.data());
       })
@@ -50,20 +51,21 @@ export default class extends Component {
   }
 
     componentDidUpdate(prevProps, prevState, snapshot){
-    if(this.state.chr !== prevState.chr){
-    let entries = [];
-    firebase.firestore().collection("nORFs").where("chr", "==", this.state.chr).get().then(function(data) {
-      data.forEach(function(doc) {
-          entries.push(doc.data());
-      })
-      }).catch(function(error) {
-        console.log("Error retrieving document:", error);
-    });
-    this.setState({
-      entries     : entries,
-      loading     : false
-    });
-    }
+      if(this.state.chr !== prevState.chr || this.state.start !== prevState.start || this.state.end !== prevState.end){
+        let entries = [];
+        firebase.firestore().collection("nORFs").where("chr", "==", this.state.chr).limit(25)
+                                                .get().then(function(data) {
+          data.forEach(function(doc) {
+              entries.push(doc.data());
+          })
+          }).catch(function(error) {
+            console.log("Error retrieving document:", error);
+        });
+        this.setState({
+          entries     : entries,
+          loading     : false
+        });
+      }
   }
 
   searchHandle() {
@@ -73,10 +75,10 @@ export default class extends Component {
 
     let chr     = searchExp[2];
     let start   = searchExp[4];
-    let stop    = searchExp[7];
-    console.log(chr, start, stop);
+    let end    = searchExp[7];
+    console.log(chr, start, end);
     console.log(this.state.entries);
-    this.setState({chr, start, stop});
+    this.setState({chr, start, end});
   }
 
 
@@ -84,10 +86,10 @@ export default class extends Component {
     let entryStore = this.state.entries.map((entry, i) =>
                         <EntryElement
                           key = {'entry' + i}
-                          id = {entry.id}
+                          ids = {entry.ids}
                           chr = {entry.chr}
                           start = {entry.start}
-                          stop = {entry.stop}
+                          end = {entry.end}
                         />
                         );
 

@@ -7,24 +7,23 @@ import './entries.css';
 class EntryElement extends React.Component {
   
   render() {
-  	console.log(this.props);
   	const chr   = <div key={'chr'   + this.props.id}> {this.props.chr}   </div>;
     const start = <div key={'start' + this.props.id}> {this.props.start} </div>;
-    const stop  = <div key={'stop'  + this.props.id}> {this.props.stop}  </div>;
-    const id    = <div key={'id'    + this.props.id}> {this.props.id}    </div>;
+    const end  = <div key={'end'  + this.props.id}> {this.props.end}  </div>;
+    const ids    = <div key={'ids'    + this.props.ids}> {this.props.ids}    </div>;
 
     const element =
          <NavLink to={'/norf?start=' + this.props.start + 
-         				   '&stop='  + this.props.stop  + 
-         				   '&chr='   + this.props.chr   + 
-         				   '&sid='   + this.props.id}>
+         				   '&end='  + this.props.end  + 
+         				   '&chr='   + this.props.chr }>
     		
-    		<div className="dataChild divFadeIn" key={'dataChild' + id}>
+    		<div className="dataChild divFadeIn" key={'dataChild' + start + stop}>
 	           <div className="col-sm-9 description">
-	     			<div className="upperTileText">id:   {id}    </div> 
 	     			<div className="upperTileText">chr:  {chr}   </div>
 	     			<div className="upperTileText">start:{start} </div>
-	                <div className="upperTileText">stop: {stop}  </div>
+	                <div className="upperTileText">end: {end}  </div>
+	     			<div className="upperTileText">ids:   "placeholder"    </div> 
+
 	            </div>
 	       	 </div>
 

@@ -5,7 +5,6 @@ import TopNav from "Containers/TopNav";
 import Sidebar from "Containers/Sidebar";
 
 import home from "./home";
-import data from "./data";
 import entries from "./entries";
 import norf from "./norf";
 import api from "./api";
@@ -29,7 +28,6 @@ class MainApp extends Component {
           <div className="container-fluid">
             <Switch>
               <Route path='/home' component={home} />
-              <Route path='/data' component={data} />
               <Route path='/entries' component={entries} />
               <Route path='/norf' component={norf} />
               <Route path='/api' component={api} />
