@@ -50,6 +50,8 @@
   "dependencies": {
     "classnames": "2.2.6",
     "firebase": "^5.8.4",
+    "jquery": "^3.3.1",
+    "pileup": "^0.6.10",
     "query-string": "^6.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

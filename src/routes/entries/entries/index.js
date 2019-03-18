@@ -30,7 +30,7 @@ export default class extends Component {
       loading    : true,
       start      : 3425241,
       end       : 3625248,
-      chr        : "14"
+      chr        : "chr1"
     }
   }
 
@@ -48,6 +48,7 @@ export default class extends Component {
       entries     : entries,
       loading     : false
     });
+    console.log("componentWillMount complete");
   }
 
     componentDidUpdate(prevProps, prevState, snapshot){
@@ -65,31 +66,35 @@ export default class extends Component {
           entries     : entries,
           loading     : false
         });
+        console.log("componentDidUpdate complete");
       }
   }
 
   searchHandle() {
-    console.log(document.getElementById('exampleTextGrid').value);
-    let search = document.getElementById('exampleTextGrid').value;
+    console.log(document.getElementById('searchInput').value);
+    let search = document.getElementById('searchInput').value;
     let searchExp = /(chr|CHR)*\s*([0-9]{1,2}|X|Y|MT)\s*(-|:)?\s*(\d+)\s*(MB|M|K|)?\s*(-|:|)?\s*(\d+|)\s*(MB|M|K|)?/.exec(search);
 
-    let chr     = searchExp[2];
+    let chr     = 'chr' + searchExp[2];
     let start   = searchExp[4];
     let end    = searchExp[7];
     console.log(chr, start, end);
     console.log(this.state.entries);
+    console.log("searchHandle complete");
     this.setState({chr, start, end});
   }
 
 
   render() {
-    let entryStore = this.state.entries.map((entry, i) =>
+    let entryStore = this.state.entries && this.state.entries.map((entry, i) =>
                         <EntryElement
                           key = {'entry' + i}
-                          ids = {entry.ids}
+                          id = {entry.id}
                           chr = {entry.chr}
                           start = {entry.start}
                           end = {entry.end}
+                          aaseq = {entry.AAseq}
+                          width = {entry.width}
                         />
                         );
 
@@ -108,19 +113,18 @@ export default class extends Component {
             <FormGroup row>
               <Input
                 type="text"
-                name="exampleTextGrid"
-                id="exampleTextGrid"
-                placeholder="chr12:540422-129391239"
-                onKeyPress={(e) => {(e.key === 'Enter' ? this.searchHandle():null)}}
+                name="searchInput"
+                id="searchInput"
+                placeholder="chr1:54042-129391"
+                onKeyPress={(e) => {(e.key === 'Enter' ? this.searchHandle() : null)}}
                 //onChange={(evt) => {this.handleTagChange(evt.target.value);}}             
               />
             </FormGroup>
 
           </Colxx>
           <Colxx xxs="3">
-               <Button color="info" className="default mb-2" onClick={() => {this.searchHandle(); }} >
+               <Button color="info" className="default mb-2" onClick={() => {this.searchHandle();}} >
                   search
-               
               </Button>
           </Colxx>
         
