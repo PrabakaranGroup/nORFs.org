@@ -24,12 +24,12 @@ export default class SectionHeroSub extends React.Component {
                 <Colxx xxs="12" xl="5" lg="12">
                     <div className="home-text">
                         <div className="display-1">
-                            About
+                            Methods
                         </div>
                         <p className="white mb-5">
-                            nORFs.org was created in the frame of a BBSRC rotation project at the Cambridge Department 
-                            of Genetics with the Prabakaran Group. Feel free to contact us either via email or GitHub for issues
-                            or suggestions of any kind. The platform code and all steps to create the database are available on Github.
+                            nORFs.org is a API aggregation platform that connects information aquired from 3rd party databases and annotation hubs.
+                            The main novel open reading frame sources of nORFs.org are the sORFs.org and openCB databases. After a quality control 
+                            and filtering process, we generated the 530k entry containing nORF.org database.
                         </p>
                     </div>
                 </Colxx>

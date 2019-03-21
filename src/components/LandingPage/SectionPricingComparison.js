@@ -12,9 +12,9 @@ export default class SectionPricingComparison extends React.Component {
 
                 <Row>
                     <Colxx xxs={{ size: "12", offset: 0 }} lg={{ size: 8, offset: 2 }} className="text-center">
-                        <h1><IntlMessages id="lp.pricecomparison.title" /></h1>
+                        <h1>The Difference</h1>
                         <p>
-                            <IntlMessages id="lp.pricecomparison.detail" />
+                            Comparing nORFs.org to the existing platforms
                         </p>
                     </Colxx>
                 </Row>
@@ -26,9 +26,9 @@ export default class SectionPricingComparison extends React.Component {
                             <div className="d-flex flex-grow-1 min-width-zero">
                                 <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
                                     <p className="list-item-heading mb-0  w-40 w-xs-100"></p>
-                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center"><IntlMessages id="lp.pricetable.title-1" /></p>
-                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center"><IntlMessages id="lp.pricetable.title-2" /></p>
-                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center"><IntlMessages id="lp.pricetable.title-3" /></p>
+                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center"><IntlMessages id="sORFs.org" /></p>
+                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center"><IntlMessages id="openProt" /></p>
+                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center"><IntlMessages id="nORFs.org" /></p>
                                 </CardBody>
                             </div>
                         </Card>
@@ -37,29 +37,10 @@ export default class SectionPricingComparison extends React.Component {
                             <div className="d-flex flex-grow-1 min-width-zero">
                                 <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
                                     <p className="list-item-heading mb-0  w-40 w-xs-100">
-                                        <IntlMessages id="lp.pricetable.feature-3-3" />
+                                        Mass Spec Evidence
                                     </p>
                                     <p className="mb-0 text-primary w-20 w-xs-100 text-center">
                                         <i className="simple-icon-check"></i>
-                                    </p>
-                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
-                                        <i className="simple-icon-check"></i>
-                                    </p>
-                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
-                                        <i className="simple-icon-check"></i>
-                                    </p>
-                                </CardBody>
-                            </div>
-                        </Card>
-
-                        <Card className="d-flex flex-row mb-3">
-                            <div className="d-flex flex-grow-1 min-width-zero">
-                                <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                    <p className="list-item-heading mb-0  w-40 w-xs-100">
-                                        <IntlMessages id="lp.pricetable.feature-3-6" />
-                                    </p>
-                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
-
                                     </p>
                                     <p className="mb-0 text-primary w-20 w-xs-100 text-center">
                                         <i className="simple-icon-check"></i>
@@ -75,28 +56,11 @@ export default class SectionPricingComparison extends React.Component {
                             <div className="d-flex flex-grow-1 min-width-zero">
                                 <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
                                     <p className="list-item-heading mb-0  w-40 w-xs-100">
-                                        <IntlMessages id="lp.pricetable.feature-2-1" />
+                                        RiboSeq Evidence
                                     </p>
-                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
-
-                                    </p>
+                                 
                                     <p className="mb-0 text-primary w-20 w-xs-100 text-center">
                                         <i className="simple-icon-check"></i>
-                                    </p>
-                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
-                                    </p>
-                                </CardBody>
-                            </div>
-                        </Card>
-
-                        <Card className="d-flex flex-row mb-3">
-                            <div className="d-flex flex-grow-1 min-width-zero">
-                                <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                    <p className="list-item-heading mb-0  w-40 w-xs-100">
-                                        <IntlMessages id="lp.pricetable.feature-3-1" />
-                                    </p>
-                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
-
                                     </p>
                                     <p className="mb-0 text-primary w-20 w-xs-100 text-center">
 
@@ -112,7 +76,45 @@ export default class SectionPricingComparison extends React.Component {
                             <div className="d-flex flex-grow-1 min-width-zero">
                                 <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
                                     <p className="list-item-heading mb-0  w-40 w-xs-100">
-                                        <IntlMessages id="lp.pricetable.feature-3-7" />
+                                        Genome Browser
+                                    </p>
+                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
+
+                                    </p>
+                                     <p className="mb-0 text-primary w-20 w-xs-100 text-center">
+                                        <i className="simple-icon-check"></i>
+                                    </p>
+                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
+                                        <i className="simple-icon-check"></i>
+                                    </p>
+                                </CardBody>
+                            </div>
+                        </Card>
+
+                        <Card className="d-flex flex-row mb-3">
+                            <div className="d-flex flex-grow-1 min-width-zero">
+                                <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
+                                    <p className="list-item-heading mb-0  w-40 w-xs-100">
+                                        OpenCB variants
+                                    </p>
+                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
+
+                                    </p>
+                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
+
+                                    </p>
+                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
+                                        <i className="simple-icon-check"></i>
+                                    </p>
+                                </CardBody>
+                            </div>
+                        </Card>
+
+                        <Card className="d-flex flex-row mb-3">
+                            <div className="d-flex flex-grow-1 min-width-zero">
+                                <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
+                                    <p className="list-item-heading mb-0  w-40 w-xs-100">
+                                        Enhanced Annotations and Metrics
                                     </p>
                                     <p className="mb-0 text-primary w-20 w-xs-100 text-center">
 

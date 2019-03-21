@@ -12,9 +12,9 @@ export default class SectionPricingTable extends React.Component {
 
                 <Row>
                     <Colxx xxs={{ size: "12", offset: 0 }} lg={{ size: 8, offset: 2 }} className="text-center">
-                        <h1><IntlMessages id="lp.pricetable.title" /></h1>
+                        <h1>Sources in Detail</h1>
                         <p>
-                            <IntlMessages id="lp.pricetable.detail" />
+                            How we Acquired our Data
                         </p>
                     </Colxx>
                 </Row>
@@ -24,29 +24,17 @@ export default class SectionPricingTable extends React.Component {
                         <Card>
                             <CardBody className="pt-5 pb-5 d-flex flex-lg-column flex-md-row flex-sm-row flex-column">
                                 <div className="price-top-part">
-                                    <i className="iconsmind-Male large-icon"></i>
-                                    <h5 className="mb-0 font-weight-semibold color-theme-1 mb-4"> <IntlMessages id="lp.pricetable.title-1" /></h5>
-                                    <p className="text-large mb-2 text-default">$11</p>
-                                    <p className="text-muted text-small"> <IntlMessages id="lp.pricetable.detail-1" /></p>
+                                    <i className="iconsmind-RGB large-icon"></i>
+                                    <h5 className="mb-0 font-weight-semibold color-theme-1 mb-4">sORFs</h5>
                                 </div>
                                 <div className="pl-3 pr-3 pt-3 pb-0 d-flex price-feature-list flex-column flex-grow-1">
                                     <ul className="list-unstyled">
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-1-1" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-1-2" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-1-3" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-1-4" /></p>
-                                        </li>
+                                        <p> sORFs.org is a small open reading frame (300 bp or smaller) database with both riboseq as well as mass spec evidence.
+                                        currently the sORFs.org db contains over 2.3 million sORF entries. </p>
                                     </ul>
                                     <div>
-                                        <NavLink to="/auth-login" className="btn btn-link btn-empty btn-lg">
-                                            <IntlMessages id="lp.pricetable.purchase" /> <i className="simple-icon-arrow-right"></i>
+                                        <NavLink to="www.sorfs.org" className="btn btn-link btn-empty btn-lg">
+                                           www.sORFs.org <i className="simple-icon-arrow-right"></i>
                                         </NavLink>
                                     </div>
                                 </div>
@@ -58,35 +46,17 @@ export default class SectionPricingTable extends React.Component {
                         <Card>
                             <CardBody className="pt-5 pb-5 d-flex flex-lg-column flex-md-row flex-sm-row flex-column">
                                 <div className="price-top-part">
-                                    <i className="iconsmind-MaleFemale large-icon"></i>
-                                    <h5 className="mb-0 font-weight-semibold color-theme-1 mb-4"><IntlMessages id="lp.pricetable.title-2" /></h5>
-                                    <p className="text-large mb-2 text-default">$17</p>
-                                    <p className="text-muted text-small"><IntlMessages id="lp.pricetable.detail-2" /></p>
+                                    <i className="iconsmind-Empty-Box large-icon"></i>
+                                    <h5 className="mb-0 font-weight-semibold color-theme-1 mb-4">openProt</h5>
                                 </div>
                                 <div className="pl-3 pr-3 pt-3 pb-0 d-flex price-feature-list flex-column flex-grow-1">
                                     <ul className="list-unstyled">
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-2-1" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-2-2" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-2-3" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-2-4" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-2-5" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-2-6" /></p>
-                                        </li>
+                                        <p> OpenProt is a database containing a wide range of non-cannonical translated entities 
+                                        acquired with mass spec evidence. </p>
                                     </ul>
                                     <div>
                                         <NavLink to="/auth-login" className="btn btn-link btn-empty btn-lg">
-                                            <IntlMessages id="lp.pricetable.purchase" /> <i className="simple-icon-arrow-right"></i>
+                                            www.openProt.org <i className="simple-icon-arrow-right"></i>
                                         </NavLink>
                                     </div>
                                 </div>
@@ -98,38 +68,17 @@ export default class SectionPricingTable extends React.Component {
                         <Card>
                             <CardBody className="pt-5 pb-5 d-flex flex-lg-column flex-md-row flex-sm-row flex-column">
                                 <div className="price-top-part">
-                                    <i className="iconsmind-MaleFemale large-icon"></i>
-                                    <h5 className="mb-0 font-weight-semibold color-theme-1 mb-4"><IntlMessages id="lp.pricetable.title-3" /></h5>
-                                    <p className="text-large mb-2 text-default">$19</p>
-                                    <p className="text-muted text-small"><IntlMessages id="lp.pricetable.detail-3" /></p>
+                                    <i className="iconsmind-Magnifi-Glass large-icon"></i>
+                                    <h5 className="mb-0 font-weight-semibold color-theme-1 mb-4">OpenCB</h5>
                                 </div>
                                 <div className="pl-3 pr-3 pt-3 pb-0 d-flex price-feature-list flex-column flex-grow-1">
                                     <ul className="list-unstyled">
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-3-1" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-3-2" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-3-3" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-3-4" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-3-5" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-3-6" /></p>
-                                        </li>
-                                        <li>
-                                            <p className="mb-0 "><IntlMessages id="lp.pricetable.feature-3-7" /></p>
-                                        </li>
+                                        <p> OpenCB itself is a aggregated database that allows to access a variety of datapoints and annotations
+                                        from given genomic positions or transcription ids </p>
                                     </ul>
                                     <div>
                                         <NavLink to="/auth-login" className="btn btn-link btn-empty btn-lg">
-                                            <IntlMessages id="lp.pricetable.purchase" /> <i className="simple-icon-arrow-right"></i>
+                                            www.OpenCB.org <i className="simple-icon-arrow-right"></i>
                                         </NavLink>
                                     </div>
                                 </div>
