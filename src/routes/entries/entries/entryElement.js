@@ -27,7 +27,7 @@ class EntryElement extends React.Component {
 	     			 <div className="upperTileText">start:{start} </div>
 	           <div className="upperTileText">end: {end}  </div>
              <div className="upperTileText">width: {width}  </div>
-             <div className="upperTileText">AAseq: {aaseq}  </div>
+             <div className="upperTileText">AAseq: {aaseq}   </div>
 	            </div>
 	       	 </div>
 

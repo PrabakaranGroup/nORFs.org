@@ -72,6 +72,7 @@
   float: left;
   padding: 15px;
   color: #000;
+  min-width: 120px;
 }
 
 a:link {

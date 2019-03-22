@@ -17,8 +17,6 @@ import {
 } from "reactstrap";
 
 
-
-
 firebase.initializeApp(firebaseConfig);
 const queryString = require('query-string');
 
@@ -85,6 +83,48 @@ export default class extends Component {
   }
 
 
+  convertArrayOfObjectsToCSV(args) {
+      var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+      data = args.data || null;
+      if (data == null || !data.length) {return null;}
+      columnDelimiter = args.columnDelimiter || ',';
+      lineDelimiter = args.lineDelimiter || '\n';
+      keys = Object.keys(data[0]);
+      result = '';
+      result += keys.join(columnDelimiter);
+      result += lineDelimiter;
+      data.forEach(function(item) {
+          ctr = 0;
+          keys.forEach(function(key) {
+              if (ctr > 0) result += columnDelimiter;
+
+              result += item[key];
+              ctr++;
+          });
+          result += lineDelimiter;
+      });
+      return result;
+  }
+
+
+  exportEntries() {
+          let data, filename, link;
+          let csv = this.convertArrayOfObjectsToCSV({
+              data: this.state.entries
+          });
+          if (csv == null) return;
+          filename = 'export.csv';
+          if (!csv.match(/^data:text\/csv/i)) {
+              csv = 'data:text/csv;charset=utf-8,' + csv;
+          }
+          data = encodeURI(csv);
+          link = document.createElement('a');
+          link.setAttribute('href', data);
+          link.setAttribute('download', filename);
+          link.click();
+  }
+
+
   render() {
     let entryStore = this.state.entries && this.state.entries.map((entry, i) =>
                         <EntryElement
@@ -123,10 +163,16 @@ export default class extends Component {
 
           </Colxx>
           <Colxx xxs="3">
-               <Button color="info" className="default mb-2" onClick={() => {this.searchHandle();}} >
+               <Button style={{marginRight: "5px"}} color="info" className="default mb-2" onClick={() => {this.searchHandle();}} >
                   search
               </Button>
+              {this.state.entries.length != 0 ? 
+              <Button color="warning" className="default mb-2" onClick={() => {this.exportEntries();}} >
+                  export
+              </Button>
+              : null}
           </Colxx>
+
         
           </Row>
           </div>
