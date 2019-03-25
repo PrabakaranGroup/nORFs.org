@@ -1,0 +1,37 @@
+.headCard {
+}
+
+.headTitle {
+	padding: 10px;
+}
+
+.headContent {
+	padding: 10px;
+}
+
+.main-holder {
+	overflow: hidden;
+}
+
+.tier-holder-holder {
+	overflow: hidden;
+
+}
+
+.tier-holder {
+	overflow: hidden;
+
+}
+
+.dalliance {
+	overflow: hidden;
+
+}
+
+.toolbar {
+	visibility: hidden;
+}
+
+.powered-by {
+	visibility: hidden;
+}
