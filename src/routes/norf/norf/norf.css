@@ -1,8 +1,11 @@
 .headCard {
+	margin-top: -10px;
+	margin-bottom: 10px;
 }
 
 .headTitle {
 	padding: 10px;
+	color: rgba(0,0,0,0.3);
 }
 
 .headContent {
@@ -25,13 +28,25 @@
 
 .dalliance {
 	overflow: hidden;
-
 }
 
 .toolbar {
-	visibility: hidden;
+	visibility: show;
+}
+
+.panel-body {
+	min-width: 200px;
 }
 
 .powered-by {
 	visibility: hidden;
+}
+
+.btn-group.pull-right:first-of-type {
+	display: none;
+}
+
+
+.loc-field {
+	height: 30px;
 }

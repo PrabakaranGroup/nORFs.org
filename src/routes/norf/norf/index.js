@@ -15,20 +15,25 @@ export default class extends Component {
       constructor(props) {
     super(props);
     this.state = {
-      loading : true,
-      apiData : [],
-      accessionID : []
+      loading     : true,
+      apiData     : [],
+      accessionID : [],
+      chr         : '',
+      start       : '',
+      stop        : ''
     }
   }
 
  componentDidMount() {
 
     const parsed = queryString.parse(location.search);
+    this.setState({chr: parsed.chr.substring(3), start: parsed.start, stop: parsed.end});
+
     fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/feature/transcript/search?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json&region=' + parsed.chr.substring(3) + '%3A' + parsed.start + '-' + parsed.end)
     .then(response =>  response.json())
     .then(apiData => {
        this.setState({ apiData: apiData }); //this is an asynchronous function
-       fetch('https://api.nextprot.org/entry-accessions/gene/TPM3.json?synonym=true')
+       fetch('https://api.nextprot.org/entry-accessions/gene/FLAD1.json?synonym=true')
        .then(accession => (accession.json()))
        .then(x => x[0])
        .then(y => console.log(y));
@@ -58,7 +63,8 @@ export default class extends Component {
       name: "conservation",
       className: "conservation", //can be used for styling
       color: "#FF829F",
-      type: "path" // ['rect', 'path', 'line']
+      type: "path", // ['rect', 'path', 'line']
+      pinned: true
     });
       ft.addFeature({
       data: [{x:15,y:32},{x:46,y:100},{x:123,y:167}],
@@ -75,18 +81,24 @@ export default class extends Component {
       type: "rect" // ['rect', 'path', 'line']
     });
 
+
       new Browser({
-    chr:          '22',
-    viewStart:    30700000,
-    viewEnd:      30900000,
-    maxHeight:    800,
+    chr       : this.state.chr,
+    viewStart : parseInt(this.state.start)-2000,
+    viewEnd   : parseInt(this.state.stop)+2000,
+    maxHeight : 900,
+    noTitle   : true,
+    noPersist : true,
+    noPersistView : true,
+    noLeapButtons : true,
+
 
     coordSystem: {
-      speciesName: 'Human',
-      taxon: 9606,
-      auth: 'GRCh',
-      version: '38',
-      ucscName: 'hg38'
+      speciesName : 'Human',
+      taxon       : 9606,
+      auth        : 'GRCh',
+      version     : '38',
+      ucscName    : 'hg38'
     },
 
     sources:     [{name:                 'Genome',
@@ -106,11 +118,6 @@ export default class extends Component {
                    desc:                 'Conservation', 
                    bwgURI:               '//www.biodalliance.org/datasets/phastCons46way.bw',
                    noDownsample:         true},
-                   {name:                 'e! transcripts',
-                    uri:                  'https://beta.rest.ensembl.org',
-                    tier_type:            'ensembl',
-                    species:              'human',
-                    type:                 ['transcript', 'exon', 'cds']},
                    {name: 'DNase I', desc: 'GM12878 DNaseI signals from UW', 
                     bwgURI: '//www.biodalliance.org/datasets/encode/wgEncodeUwDnaseGm12878Aln_2Reps.norm5.rawsignal.bw', 
                     style: [{type: 'default', style: {glyph: 'HISTOGRAM', BGCOLOR: 'rgb(8,104,172)', HEIGHT: 30, id: 'style1'}}], 
@@ -127,16 +134,15 @@ export default class extends Component {
                    bwgURI: '//www.biodalliance.org/datasets/encode/wgEncodeUwHistoneGm12878H3k4me3StdAln_2Reps.norm5.rawsignal.bw',
                    style: [{type: 'default', style: {glyph: 'HISTOGRAM', BGCOLOR: 'rgb(166,71,71)', HEIGHT: 30, id: 'style1'}}], 
                    noDownsample: true},
-                    {name: 'GM12878 ChromHMM', desc: 'GM12878 ChromHMM Genome Segmentation', 
-                       pennant: '//genome.ucsc.edu/images/encodeThumbnail.jpg',
-                       bwgURI: '//www.biodalliance.org/datasets/encode/gm12878.ChromHMM.bb',
-                       style: [{type: 'bigbed', style: {glyph: 'BOX', FGCOLOR: 'black', BGCOLOR: 'blue', HEIGHT: 8, BUMP: false, LABEL: false, ZINDEX: 20, BGITEM: true, id: 'style1'}}, 
-                              {type: 'bb-translation', style: {glyph: 'BOX', FGCOLOR: 'black', BGITEM: true, BGCOLOR: 'red', HEIGHT: 10, BUMP: true, ZINDEX: 20, id: 'style2'}}, 
-                              {type: 'bb-transcript', style: {glyph: 'BOX', FGCOLOR: 'black', BGCOLOR: 'white', HEIGHT: 10, ZINDEX: 10, BUMP: true, LABEL: true, id: 'style3'}}]}
+                  {name: 'GM12878 ChromHMM', desc: 'GM12878 ChromHMM Genome Segmentation', 
+                     bwgURI: '//www.biodalliance.org/datasets/encode/gm12878.ChromHMM.bb',
+                     style: [{type: 'bigbed', style: {glyph: 'BOX', FGCOLOR: 'black', BGCOLOR: 'blue', HEIGHT: 8, BUMP: false, LABEL: false, ZINDEX: 20, BGITEM: true, id: 'style1'}}, 
+                            {type: 'bb-translation', style: {glyph: 'BOX', FGCOLOR: 'black', BGITEM: true, BGCOLOR: 'red', HEIGHT: 10, BUMP: true, ZINDEX: 20, id: 'style2'}}, 
+                            {type: 'bb-transcript', style: {glyph: 'BOX', FGCOLOR: 'black', BGCOLOR: 'white', HEIGHT: 10, ZINDEX: 10, BUMP: true, LABEL: true, id: 'style3'}}]}
 
                  ],
 
-  });
+    });
 
     })
 }
@@ -160,36 +166,42 @@ export default class extends Component {
               Details 
             </div>
             <div className="headContent">
-              test 
+              id: <br/> 
+              chr: {this.state.chr}<br/>
+              position: {this.state.start}-{this.state.stop}
             </div>
           </Card>
         </Colxx>
-        <Colxx className="headCard" xxs="4">
-          <Card> 
-            <div className="headTitle">
-              Annotation 
-            </div>
-            <div className="headContent">
-              test 
-            </div>
-          </Card>
-        </Colxx>
+
         <Colxx className="headCard " xxs="4">
           <Card> 
             <div className="headTitle">
               Evidence 
             </div>
             <div className="headContent">
-              test 
+              Origin: <br/>
+              Score: <br/>
+              Method: 
             </div>
           </Card>
         </Colxx>
-          <Colxx xxs="12">
-              <div id="svgHolder"/>
-          </Colxx>
-          <Colxx xxs="12">
-            <div id="peptideGraph"/>
-          </Colxx>
+        <Colxx className="headCard" xxs="4">
+          <Card> 
+            <div className="headTitle">
+              Help 
+            </div>
+            <div className="headContent">
+             jump between close up and large scale with space button
+            </div>
+          </Card>
+        </Colxx>
+
+        <Colxx xxs="12">
+            <div id="svgHolder"/>
+        </Colxx>
+        <Colxx xxs="12">
+          <div id="peptideGraph"/>
+        </Colxx>
 
         
         </Row>
