@@ -50,6 +50,8 @@ export default class extends Component {
             <h3 className="mb-4"> The nORFs.org API </h3>
             <p> To accomodate programmatic access to the nORFs.org database and functionality, the following API
             commands can be used to fetch data. </p>
+
+            <p style={{color: "red"}}> This section is corrently under construction and thus contains placeholder text </p>
             </CardBody>
             </Card>
       </Colxx>

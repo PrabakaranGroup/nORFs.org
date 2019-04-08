@@ -42,7 +42,7 @@ export default class SectionFeatureCarousel extends React.Component {
                                         <h5 className="mb-0 font-weight-semibold">nORF Analysis</h5>
                                     </div>
                                     <div>
-                                        <p className="detail-text">Each novel open reading frame can further be analysed our 
+                                        <p className="detail-text">Each novel open reading frame can further be analysed with our 
                                         genome browser and openCB annotations</p>
                                     </div>
                                 </CardBody>

@@ -95,6 +95,25 @@ export default class SectionPricingComparison extends React.Component {
                             <div className="d-flex flex-grow-1 min-width-zero">
                                 <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
                                     <p className="list-item-heading mb-0  w-40 w-xs-100">
+                                        Protein Sequence Viewer
+                                    </p>
+                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
+
+                                    </p>
+                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
+
+                                    </p>
+                                    <p className="mb-0 text-primary w-20 w-xs-100 text-center">
+                                        <i className="simple-icon-check"></i>
+                                    </p>
+                                </CardBody>
+                            </div>
+                        </Card>
+
+                        <Card className="d-flex flex-row mb-3">
+                            <div className="d-flex flex-grow-1 min-width-zero">
+                                <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
+                                    <p className="list-item-heading mb-0  w-40 w-xs-100">
                                         OpenCB variants
                                     </p>
                                     <p className="mb-0 text-primary w-20 w-xs-100 text-center">
@@ -114,7 +133,7 @@ export default class SectionPricingComparison extends React.Component {
                             <div className="d-flex flex-grow-1 min-width-zero">
                                 <CardBody className="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
                                     <p className="list-item-heading mb-0  w-40 w-xs-100">
-                                        Enhanced Annotations and Metrics
+                                        Customized Annotations and Metrics
                                     </p>
                                     <p className="mb-0 text-primary w-20 w-xs-100 text-center">
 

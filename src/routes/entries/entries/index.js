@@ -27,7 +27,7 @@ export default class extends Component {
       entries    : [],
       loading    : true,
       start      : 3425241,
-      end       : 3625248,
+      end        : 3625248,
       chr        : "chr1"
     }
   }
@@ -75,7 +75,7 @@ export default class extends Component {
 
     let chr     = 'chr' + searchExp[2];
     let start   = searchExp[4];
-    let end    = searchExp[7];
+    let end     = searchExp[7];
     console.log(chr, start, end);
     console.log(this.state.entries);
     console.log("searchHandle complete");
