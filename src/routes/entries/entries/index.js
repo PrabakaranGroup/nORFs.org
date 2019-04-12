@@ -112,7 +112,7 @@ export default class extends Component {
     console.log(this.state.entries);
     console.log("searchHandle complete");
     this.setState({chr, start, end});
-    this.featureOverview();
+    //this.featureOverview();
   }
 
   convertArrayOfObjectsToCSV(args) {
@@ -177,6 +177,7 @@ export default class extends Component {
       <Fragment>
         <Row>
         <Colxx xxs="8" className="middlesSearch">
+                <p> Beta Mode: Currently only chr1 is available! </p>
         <div>
         <Row>
           <Colxx xxs="5" >
