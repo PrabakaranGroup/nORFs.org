@@ -202,8 +202,8 @@ export default class extends Component {
         <Colxx xxs="12">
           <div id="peptideGraph"/>
         </Colxx>
-
-        
+        <p style={{color: "red"}}> openCB API return - will soon be integrated into graphics </p>
+        {apiStore}
         </Row>
         {
           /*Enjoy!*/

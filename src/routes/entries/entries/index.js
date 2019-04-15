@@ -177,7 +177,7 @@ export default class extends Component {
       <Fragment>
         <Row>
         <Colxx xxs="8" className="middlesSearch">
-                <p> Beta Mode: Currently only chr1 is available! </p>
+                <p> Beta Mode: Currently only chr1 is available! Please click twice on search due to a minor bug.</p>
         <div>
         <Row>
           <Colxx xxs="5" >
