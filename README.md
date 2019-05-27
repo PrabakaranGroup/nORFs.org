@@ -8,7 +8,7 @@ nORFs prabakaran lab repository
 ```git clone https://github.com/PrabakaranGroup/nORFs.org.git```
 ```npm install```
 
-go to node_modules/feature-viewer/lib/ubdex.js and change line 15 & 16
+go to node_modules/feature-viewer/lib/index.js and change line 15 & 16
 
 from
 > require("bootstrap/js/tooltip.js");
