@@ -29,7 +29,7 @@ export default class extends Component {
     const parsed = queryString.parse(location.search);
     this.setState({chr: parsed.chr.substring(3), start: parsed.start, stop: parsed.end});
 
-    fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/feature/transcript/search?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json&region=' + parsed.chr.substring(3) + '%3A' + parsed.start + '-' + parsed.end)
+    fetch('http://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/feature/transcript/search?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json&region=' + parsed.chr.substring(3) + '%3A' + parsed.start + '-' + parsed.end)
     .then(response =>  response.json())
     .then(apiData => {
        this.setState({ apiData: apiData }); //this is an asynchronous function
