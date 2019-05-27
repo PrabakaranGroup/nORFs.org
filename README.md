@@ -20,7 +20,7 @@ to
 
 ### start:
 
-```npm run start```
+```npm run start``` or ```yarn run start```
 
 
 ### deploy
