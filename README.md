@@ -6,7 +6,8 @@ nORFs prabakaran lab repository
 ### installation:
 
 ```git clone https://github.com/PrabakaranGroup/nORFs.org.git```
-```npm install```
+
+```npm install``` or ```yarn install```
 
 go to node_modules/feature-viewer/lib/index.js and change line 15 & 16
 
