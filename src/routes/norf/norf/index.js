@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import IntlMessages from "Util/IntlMessages";
-import { Row, Card, CardBody, CardTitle, Button, Jumbotron } from "reactstrap";
+import { Row, Card, CardBody, CardTitle, Button, Jumbotron, FormGroup, CustomInput, Label} from "reactstrap";
 
 import { Colxx, Separator } from "Components/CustomBootstrap";
 import BreadcrumbContainer from "Components/BreadcrumbContainer";
@@ -20,7 +20,8 @@ export default class extends Component {
       accessionID : [],
       chr         : '',
       start       : '',
-      stop        : ''
+      stop        : '',
+      showSettings: false
     }
   }
 
@@ -154,14 +155,262 @@ export default class extends Component {
     console.log(apiTemp);
     let apiStore = <p>{apiTemp}</p>;
 
+    let settingsTab =  <Colxx className="headCard" xxs="12" style={{marginTop: 10}}>
+                         <Card style={{padding: 10}}>
+                         <FormGroup>
+                         <Row>
 
+                         <Colxx className="headCard" xxs="2">
+                               <div className="headTitle">
+                            Conservation Based
+                           </div>
+                         <Row>
+                         <Colxx xxs="12">
+                           <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="PhastCons scores"
+                            />
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="PhyloP vertebrates"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="GERP scores"
+                            />
+                               <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="TF binding sites"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Siphy log odds"
+                            />
+                         </Colxx>
+                         
+                         </Row>
+                         </Colxx>
+                         <Colxx className="headCard" xxs="4">
+                               <div className="headTitle">
+                            Functional
+                           </div>
+                         <Row>
+                         <Colxx xxs="6">
+                           <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="GAWA scores"
+                            />
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Amino acid change"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Fitness Consequence score"
+                            />
+
+                             <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Segway"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="MutationTaster score"
+                            />
+
+                             <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="MutationAssessor score"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="MetaLR score"
+                            />
+
+                         </Colxx>
+                         <Colxx xxs="6">
+                           <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Sift score"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Polyphen score"
+                            />
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Grantham score"
+                            />
+
+                             <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="LRT Score"
+                            />
+
+                             <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="PROVEAN Score"
+                            />
+
+                             <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="MetaSVM Score"
+                            />
+                         </Colxx>
+                         </Row>
+                         </Colxx>
+                               <Colxx className="headCard" xxs="6">
+                               <div className="headTitle">
+                            Region Based
+                           </div>
+                         <Row>
+                         <Colxx xxs="4">
+                           <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Max H3K27 Acetylation level"
+                            />
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Max H3K27 Metyhlation level"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Max H3K27 trimetylation level"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Max expression value"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="DNAse peak signal (chromatin)"
+                            />
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Faire peak signal (chromatin)"
+                            />
+                         </Colxx>
+                         <Colxx xxs="4">
+                           <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Pol II evidence (chromatin"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="CTCF peak signal (chromatin)"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Myc peak signal (chromatin)"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Max nucleosome track score"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Number TF binding sites"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Distance to TSS"
+                            />
+
+                       
+                         </Colxx>
+                         <Colxx xxs="4">
+                           <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Distance to splice site"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Nature of splice site"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Relative position in transcript"
+                            />
+
+                             <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="Distance to nearest exon"
+                            />
+
+                            <CustomInput
+                              type="checkbox"
+                              id="exampleCustomCheckbox"
+                              label="GC percentage in 150bp"
+                            />
+
+                         </Colxx>
+                         </Row>
+                         </Colxx>
+
+
+
+                        </Row>
+
+                          </FormGroup>
+                         </Card>
+                        </Colxx>
 
 
     return (
       <Fragment>
-        <Row>
+        <Row >
         <Colxx className="headCard" xxs="4">
-          <Card> 
+          <Card style={{padding: 5}}> 
             <div className="headTitle">
               Details 
             </div>
@@ -174,11 +423,11 @@ export default class extends Component {
         </Colxx>
 
         <Colxx className="headCard " xxs="4">
-          <Card> 
+          <Card style={{padding: 5}}> 
             <div className="headTitle">
               Evidence 
             </div>
-            <div className="headContent">
+            <div className="headContent" >
               Origin: <br/>
               Score: <br/>
               Method: 
@@ -186,15 +435,16 @@ export default class extends Component {
           </Card>
         </Colxx>
         <Colxx className="headCard" xxs="4">
-          <Card> 
+          <Card style={{padding: 5}}> 
             <div className="headTitle">
-              Help 
+              Settings 
             </div>
-            <div className="headContent">
-             jump between close up and large scale with space button
-            </div>
+             <Button style={{padding: 14}} color="info" className="default mb-2" onClick={() => {this.setState({showSettings : !this.state.showSettings});}}>Additional Annotations</Button>
           </Card>
         </Colxx>
+
+        {this.state.showSettings && settingsTab}
+
 
         <Colxx xxs="12">
             <div id="svgHolder"/>
