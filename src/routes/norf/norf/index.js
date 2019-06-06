@@ -17,6 +17,7 @@ export default class extends Component {
     this.state = {
       loading     : true,
       apiData     : [],
+      apiTest     : [],
       accessionID : [],
       chr         : '',
       start       : '',
@@ -28,17 +29,10 @@ export default class extends Component {
  componentDidMount() {
 
     const parsed = queryString.parse(location.search);
-    this.setState({chr: parsed.chr.substring(3), start: parsed.start, stop: parsed.end});
+    this.setState({chr: parsed.chr.substring(3), start: parsed.start, stop: parsed.end})
 
-    fetch('http://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/feature/transcript/search?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json&region=' + parsed.chr.substring(3) + '%3A' + parsed.start + '-' + parsed.end)
-    .then(response =>  response.json())
-    .then(apiData => {
-       this.setState({ apiData: apiData }); //this is an asynchronous function
-       fetch('https://api.nextprot.org/entry-accessions/gene/FLAD1.json?synonym=true')
-       .then(accession => (accession.json()))
-       .then(x => x[0])
-       .then(y => console.log(y));
-        
+
+
        var ft = new FeatureViewer('MALWMRLLPLLALLALWGPGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLEMALWMRLLPLLALLALWGPGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLEALWMRLLPLLALLALWGPGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLE',
                            '#peptideGraph',
                             {
@@ -49,6 +43,7 @@ export default class extends Component {
                                 bubbleHelp:true, 
                                 zoomMax:10 //define the maximum range of the zoom
                             });
+
 
 
 
@@ -84,9 +79,9 @@ export default class extends Component {
 
 
       new Browser({
-    chr       : this.state.chr,
-    viewStart : parseInt(this.state.start)-2000,
-    viewEnd   : parseInt(this.state.stop)+2000,
+    chr       : parsed.chr.substring(3),
+    viewStart : parseInt(parsed.start)-2000,
+    viewEnd   : parseInt(parsed.end)+2000,
     maxHeight : 900,
     noTitle   : true,
     noPersist : true,
@@ -145,19 +140,26 @@ export default class extends Component {
 
     });
 
-    })
+           fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/genomic/region/' + parsed.chr.substring(3) + '%' + parsed.start + '-' + parsed.end + '/conservation?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json')
+      .then(response =>  response.json())
+      .then(apiTest => {
+       this.setState({ apiTest: apiTest }); 
+       console.log(apiTest);
+     });
+
+
+
 }
+
+
 
   render() {
    
-    console.log(this.state.apiData);
     let apiTemp = JSON.stringify(this.state.apiData);
-    console.log(apiTemp);
     let apiStore = <p>{apiTemp}</p>;
 
-    let settingsTab =  <Colxx className="headCard" xxs="12" style={{marginTop: 10}}>
+    let settingsTab =  <Colxx className="headCard" xxs="12" style={{marginTop: 0}}>
                          <Card style={{padding: 10}}>
-                         <FormGroup>
                          <Row>
 
                          <Colxx className="headCard" xxs="2">
@@ -170,17 +172,19 @@ export default class extends Component {
                               type="checkbox"
                               id="exampleCustomCheckbox"
                               label="PhastCons scores"
+                              onChange={() => {console.log("input1")}}
                             />
                             <CustomInput
                               type="checkbox"
                               id="exampleCustomCheckbox"
                               label="PhyloP vertebrates"
+                              onChange={() => {console.log("input2")}}
                             />
-
                             <CustomInput
                               type="checkbox"
                               id="exampleCustomCheckbox"
                               label="GERP scores"
+                              onChange={() => {console.log("input3")}}
                             />
                                <CustomInput
                               type="checkbox"
@@ -327,7 +331,7 @@ export default class extends Component {
                            <CustomInput
                               type="checkbox"
                               id="exampleCustomCheckbox"
-                              label="Pol II evidence (chromatin"
+                              label="Pol II evidence (chromatin)"
                             />
 
                             <CustomInput
@@ -401,7 +405,6 @@ export default class extends Component {
 
                         </Row>
 
-                          </FormGroup>
                          </Card>
                         </Colxx>
 
@@ -452,8 +455,6 @@ export default class extends Component {
         <Colxx xxs="12">
           <div id="peptideGraph"/>
         </Colxx>
-        <p style={{color: "red"}}> openCB API return - will soon be integrated into graphics </p>
-        {apiStore}
         </Row>
         {
           /*Enjoy!*/
