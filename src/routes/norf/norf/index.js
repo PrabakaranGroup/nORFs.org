@@ -22,7 +22,9 @@ export default class extends Component {
       chr         : '',
       start       : '',
       stop        : '',
-      showSettings: false
+      showSettings: false,
+      avgPhyloP       : [],
+      avgPhastcons   : [],
     }
   }
 
@@ -139,19 +141,23 @@ export default class extends Component {
                  ],
 
     });
-
-           fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/genomic/region/' + parsed.chr.substring(3) + '%' + parsed.start + '-' + parsed.end + '/conservation?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json')
+      fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/genomic/region/1%3A629922-629981/conservation?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json')
       .then(response =>  response.json())
       .then(apiTest => {
-       this.setState({ apiTest: apiTest }); 
+       const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
+       let avgPhastcons = average(apiTest.response[0].result[0].values);
+       let avgPhyloP = average(apiTest.response[0].result[1].values);
+
+
+       this.setState({ apiTest, avgPhastcons, avgPhyloP }); 
+
        console.log(apiTest);
+       console.log("phastcons: " + avgPhastcons);
+       console.log("avgPhylop: " + avgPhyloP);
      });
-
-
-
 }
 
-
+         //  fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/genomic/region/' + parsed.chr.substring(3) + '%' + parsed.start + '-' + parsed.end + '/conservation?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json')
 
   render() {
    
@@ -400,13 +406,20 @@ export default class extends Component {
                          </Colxx>
                          </Row>
                          </Colxx>
-
-
-
-                        </Row>
-
+                          </Row>
                          </Card>
-                        </Colxx>
+                        </Colxx>;
+
+    let graphics = <Colxx>
+                   <Colxx xxs="12">
+                     <div id="svgHolder"/>
+                   </Colxx>
+                   <Colxx xxs="12">
+                     <div id="peptideGraph"/>
+                   </Colxx>
+                   </Colxx>;
+
+
 
 
     return (
@@ -431,8 +444,8 @@ export default class extends Component {
               Evidence 
             </div>
             <div className="headContent" >
-              Origin: <br/>
-              Score: <br/>
+              PhastCons: {parseFloat(this.state.avgPhastcons).toFixed(3)}<br/>
+              PhyloP:  {parseFloat(this.state.avgPhyloP).toFixed(3)}<br/>
               Method: 
             </div>
           </Card>
@@ -448,13 +461,7 @@ export default class extends Component {
 
         {this.state.showSettings && settingsTab}
 
-
-        <Colxx xxs="12">
-            <div id="svgHolder"/>
-        </Colxx>
-        <Colxx xxs="12">
-          <div id="peptideGraph"/>
-        </Colxx>
+        {graphics}
         </Row>
         {
           /*Enjoy!*/
