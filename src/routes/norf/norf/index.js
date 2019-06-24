@@ -23,8 +23,8 @@ export default class extends Component {
       start       : '',
       stop        : '',
       showSettings: false,
-      avgPhyloP       : [],
-      avgPhastcons   : [],
+      avgPhyloP   : [],
+      avgPhastcons: [],
     }
   }
 
@@ -38,12 +38,12 @@ export default class extends Component {
        var ft = new FeatureViewer('MALWMRLLPLLALLALWGPGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLEMALWMRLLPLLALLALWGPGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLEALWMRLLPLLALLALWGPGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLE',
                            '#peptideGraph',
                             {
-                                showAxis: true,
+                                showAxis:     true,
                                 showSequence: true,
-                                brushActive: true, //zoom
-                                toolbar:true, //current zoom & mouse position
-                                bubbleHelp:true, 
-                                zoomMax:10 //define the maximum range of the zoom
+                                brushActive:  true, //zoom
+                                toolbar:      true, //current zoom & mouse position
+                                bubbleHelp:   true, 
+                                zoomMax:      10 //define the maximum range of the zoom
                             });
 
 
@@ -164,11 +164,11 @@ export default class extends Component {
     let apiTemp = JSON.stringify(this.state.apiData);
     let apiStore = <p>{apiTemp}</p>;
 
-    let settingsTab =  <Colxx className="headCard" xxs="12" style={{marginTop: 0}}>
+    let settingsTab =  <Colxx className="headCard2" xxs="12" style={{marginTop: 0}}>
                          <Card style={{padding: 10}}>
                          <Row>
 
-                         <Colxx className="headCard" xxs="2">
+                         <Colxx className="headCard2" xxs="2">
                                <div className="headTitle">
                             Conservation Based
                            </div>
@@ -207,7 +207,7 @@ export default class extends Component {
                          
                          </Row>
                          </Colxx>
-                         <Colxx className="headCard" xxs="4">
+                         <Colxx className="headCard2" xxs="4">
                                <div className="headTitle">
                             Functional
                            </div>
@@ -293,7 +293,7 @@ export default class extends Component {
                          </Colxx>
                          </Row>
                          </Colxx>
-                               <Colxx className="headCard" xxs="6">
+                               <Colxx className="headCard2" xxs="6">
                                <div className="headTitle">
                             Region Based
                            </div>
@@ -455,13 +455,15 @@ export default class extends Component {
             <div className="headTitle">
               Settings 
             </div>
-             <Button style={{padding: 14}} color="info" className="default mb-2" onClick={() => {this.setState({showSettings : !this.state.showSettings});}}>Additional Annotations</Button>
-          </Card>
+            </Card>
+            <Colxx style={{height: 76, padding: 15, paddingLeft: 0}}>
+             <Button style={{padding: 20 }} color="info" className="default mb-2" onClick={() => {this.setState({showSettings : !this.state.showSettings});}}>Additional Annotations</Button>
+            </Colxx>
         </Colxx>
 
-        {this.state.showSettings && settingsTab}
 
         {graphics}
+        {this.state.showSettings && settingsTab}
         </Row>
         {
           /*Enjoy!*/
