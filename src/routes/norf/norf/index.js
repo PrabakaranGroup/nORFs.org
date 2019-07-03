@@ -5,7 +5,13 @@ import { Row, Card, CardBody, CardTitle, Button, Jumbotron, FormGroup, CustomInp
 import { Colxx, Separator } from "Components/CustomBootstrap";
 import BreadcrumbContainer from "Components/BreadcrumbContainer";
 const queryString = require('query-string');
-var FeatureViewer = require("feature-viewer")
+var FeatureViewer = require("feature-viewer");
+import Chart from "react-apexcharts";
+import ReactApexChart from "react-apexcharts";
+
+
+
+
 const dalliance = window.dalliance;
 
 import './norf.css';
@@ -23,8 +29,20 @@ export default class extends Component {
       start       : '',
       stop        : '',
       showSettings: false,
+
       avgPhyloP   : [],
+      phyloP      : [],
       avgPhastcons: [],
+      phastCons   : [],
+      nTranscripts: [],
+
+      options: {
+        chart: {
+          type: 'line',
+          height: 200
+      }
+    }
+
     }
   }
 
@@ -50,32 +68,10 @@ export default class extends Component {
 
 
     ft.addFeature({
-      data: [{x:20,y:32},{x:46,y:105},{x:123,y:167}],
-      name: "protein",
-      className: "protein", //can be used for styling
+      data: [{x:20,y:20, description:"bbbbb"},{x:46,y:46, description:"aaaa"},{x:123,y:123, description:"cccc"}],
+      name: "SNVs",
+      className: "SNVs", //can be used for styling
       color: "#0F8292",
-      type: "rect" // ['rect', 'path', 'line']
-    });
-     ft.addFeature({
-      data: [{x:18,y:34},{x:26,y:100},{x:23,y:67}],
-      name: "conservation",
-      className: "conservation", //can be used for styling
-      color: "#FF829F",
-      type: "path", // ['rect', 'path', 'line']
-      pinned: true
-    });
-      ft.addFeature({
-      data: [{x:15,y:32},{x:46,y:100},{x:123,y:167}],
-      name: "variant",
-      className: "variant", //can be used for styling
-      color: "#F02F92",
-      type: "rect" // ['rect', 'path', 'line']
-    });
-       ft.addFeature({
-      data: [{x:10,y:30},{x:46,y:113},{x:123,y:167}],
-      name: "orthology",
-      className: "orthology", //can be used for styling
-      color: "#328FFF",
       type: "rect" // ['rect', 'path', 'line']
     });
 
@@ -141,30 +137,54 @@ export default class extends Component {
                  ],
 
     });
-      fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/genomic/region/1%3A629922-629981/conservation?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json')
+      fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/genomic/region/' + parsed.chr.substring(3) + '%3A' + parsed.start + '-' + parsed.end + '/conservation?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json')
       .then(response =>  response.json())
       .then(apiTest => {
        const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
        let avgPhastcons = average(apiTest.response[0].result[0].values);
        let avgPhyloP = average(apiTest.response[0].result[1].values);
+       let phyloP = apiTest.response[0].result[1].values;
+       let phastCons = apiTest.response[0].result[0].values;
 
-
-       this.setState({ apiTest, avgPhastcons, avgPhyloP }); 
+       this.setState({ apiTest, avgPhastcons, avgPhyloP, phyloP, phastCons }); 
 
        console.log(apiTest);
        console.log("phastcons: " + avgPhastcons);
        console.log("avgPhylop: " + avgPhyloP);
      });
+
+
+     fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/feature/gene/search?limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json&region=' + parsed.chr.substring(3) + '%3A' + parsed.start + '-' + parsed.end)
+      .then(response =>  response.json())
+      .then(apiData => {
+        console.log(apiData);
+       this.setState({nTranscripts : apiData.response[0].numResults})
+     });
+
+     fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/feature/variation/search?limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json&region=' + parsed.chr.substring(3) + '%3A' + parsed.start + '-' + parsed.end)
+      .then(response =>  response.json())
+      .then(variation => {
+        console.log(variation);
+     });
+
 }
 
-         //  fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/genomic/region/' + parsed.chr.substring(3) + '%' + parsed.start + '-' + parsed.end + '/conservation?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json')
 
   render() {
-   
-    let apiTemp = JSON.stringify(this.state.apiData);
-    let apiStore = <p>{apiTemp}</p>;
 
-    let settingsTab =  <Colxx className="headCard2" xxs="12" style={{marginTop: 0}}>
+    const graphicStyle = this.state.showSettings ? {
+      margin: '0px',
+      visibility: 'hidden',
+      display: 'none'
+    } : {
+      margin: '0px'
+    };
+   
+    let apiTemp     = JSON.stringify(this.state.apiData);
+    let apiStore    = <p>{apiTemp}</p>;
+
+    let phastCons = <Card> {this.state.avgPhastcons} </Card>;
+    let settingsTab = <Colxx className="headCard2" xxs="12" style={{marginTop: 0}}>
                          <Card style={{padding: 10}}>
                          <Row>
 
@@ -410,21 +430,23 @@ export default class extends Component {
                          </Card>
                         </Colxx>;
 
-    let graphics = <Colxx>
+    let graphic1 = <Colxx style={graphicStyle}>
                    <Colxx xxs="12">
                      <div id="svgHolder"/>
                    </Colxx>
-                   <Colxx xxs="12">
-                     <div id="peptideGraph"/>
-                   </Colxx>
                    </Colxx>;
+     
 
+    let graphic2 = <Colxx xxs="12" style={graphicStyle}>
+                    <div id="peptideGraph"/>
+                   </Colxx>;
 
 
 
     return (
       <Fragment>
         <Row >
+
         <Colxx className="headCard" xxs="4">
           <Card style={{padding: 5}}> 
             <div className="headTitle">
@@ -446,7 +468,7 @@ export default class extends Component {
             <div className="headContent" >
               PhastCons: {parseFloat(this.state.avgPhastcons).toFixed(3)}<br/>
               PhyloP:  {parseFloat(this.state.avgPhyloP).toFixed(3)}<br/>
-              Method: 
+              Transcripts: {this.state.nTranscripts} 
             </div>
           </Card>
         </Colxx>
@@ -457,17 +479,310 @@ export default class extends Component {
             </div>
             </Card>
             <Colxx style={{height: 76, padding: 15, paddingLeft: 0}}>
-             <Button style={{padding: 20 }} color="info" className="default mb-2" onClick={() => {this.setState({showSettings : !this.state.showSettings});}}>Additional Annotations</Button>
+            {this.state.showSettings ?
+             <Button style={{padding: 20 }} color="info" className="default mb-2" onClick={() => {this.setState({showSettings : !this.state.showSettings});}}>Gene Explorer</Button>
+             :
+             <Button style={{padding: 20 }} color="info" className="default mb-2" onClick={() => {this.setState({showSettings : !this.state.showSettings});}}>Additional Annotations </Button>
+            }
             </Colxx>
         </Colxx>
 
 
-        {graphics}
+        {graphic1}
+        {graphic2}
+
         {this.state.showSettings && settingsTab}
+        {this.state.showSettings && phastCons}
+
+
+
         </Row>
-        {
-          /*Enjoy!*/
-        }
+
+        <Row>
+        <Colxx xxs="12" style={{height: 50}}>
+             <Chart
+                  options={{
+                  chart: {
+                    zoom: {
+                        enabled: false
+                    }
+                  },
+                  dataLabels: {
+                      enabled: false
+                  },
+                  stroke: {
+                      curve: 'stepline'
+                  },
+                  title: {
+                    text: 'PhyloP Score',
+                    align: 'left'
+                  },
+                  markers: {
+                    hover: {
+                      sizeOffset: 4
+                    }
+                  },
+                }}
+                series={[
+                  {
+                    name: "phyloP score",
+                    data: this.state.phyloP
+                  }
+                ]}
+                type="line"
+                width="100%"
+                height="250"
+             />
+
+             <Chart
+                  options={{
+                  chart: {
+                    zoom: {
+                        enabled: false
+                    }
+                  },
+                  dataLabels: {
+                      enabled: false
+                  },
+                  stroke: {
+                      curve: 'stepline'
+                  },
+                  title: {
+                    text: 'PhastCons score',
+                    align: 'left'
+                  },
+                  markers: {
+                    hover: {
+                      sizeOffset: 4
+                    }
+                  },
+                }}
+                series={[
+                  {
+                    name: "PhastCons score",
+                    data: this.state.phastCons
+                  }
+                ]}
+                type="line"
+                width="100%"
+                height="250"
+             />
+
+              <ReactApexChart options={this.state.options} series={[
+    {
+      name: "Series 1",
+      data: [{
+        x: 'W1',
+        y: 22
+      }, {
+        x: 'W2',
+        y: 29
+      }, {
+        x: 'W3',
+        y: 13
+      }, {
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W1',
+        y: 22
+      }, {
+        x: 'W2',
+        y: 29
+      }, {
+        x: 'W3',
+        y: 13
+      }, {
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W1',
+        y: 22
+      }, {
+        x: 'W2',
+        y: 29
+      }, {
+        x: 'W3',
+        y: 13
+      }, {
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },]
+    },
+    {
+      name: "Series 3",
+      data: [{
+        x: 'W1',
+        y: 22
+      }, {
+        x: 'W2',
+        y: 29
+      }, {
+        x: 'W3',
+        y: 13
+      }, {
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W1',
+        y: 22
+      }, {
+        x: 'W2',
+        y: 29
+      }, {
+        x: 'W3',
+        y: 13
+      }, {
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W1',
+        y: 22
+      }, {
+        x: 'W2',
+        y: 29
+      }, {
+        x: 'W3',
+        y: 13
+      }, {
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },{
+        x: 'W4',
+        y: 32
+      },]
+    },
+    {
+      name: "Series 2",
+      data: [{
+        x: 'W1',
+        y: 43
+      }, {
+        x: 'W2',
+        y: 43
+      }, {
+        x: 'W3',
+        y: 43
+      }, {
+        x: 'W4',
+        y: 43
+      }]
+    }
+  ]} type="heatmap" height="150" />
+
+
+        </Colxx>
+        </Row>
+        <br/>
+        <div>
+        <Row>
+        </Row>
+        </div>
       </Fragment>
     );
   }
