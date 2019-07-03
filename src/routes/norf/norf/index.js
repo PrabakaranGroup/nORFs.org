@@ -30,6 +30,8 @@ export default class extends Component {
       stop        : '',
       showSettings: false,
 
+      sequence    : '',
+      variation   : [],
       avgPhyloP   : [],
       phyloP      : [],
       avgPhastcons: [],
@@ -52,28 +54,6 @@ export default class extends Component {
     this.setState({chr: parsed.chr.substring(3), start: parsed.start, stop: parsed.end})
 
 
-
-       var ft = new FeatureViewer('MALWMRLLPLLALLALWGPGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLEMALWMRLLPLLALLALWGPGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLEALWMRLLPLLALLALWGPGPGAGSLQPLALEGSLQKRGIVEQCCTSICSLYQLE',
-                           '#peptideGraph',
-                            {
-                                showAxis:     true,
-                                showSequence: true,
-                                brushActive:  true, //zoom
-                                toolbar:      true, //current zoom & mouse position
-                                bubbleHelp:   true, 
-                                zoomMax:      10 //define the maximum range of the zoom
-                            });
-
-
-
-
-    ft.addFeature({
-      data: [{x:20,y:20, description:"bbbbb"},{x:46,y:46, description:"aaaa"},{x:123,y:123, description:"cccc"}],
-      name: "SNVs",
-      className: "SNVs", //can be used for styling
-      color: "#0F8292",
-      type: "rect" // ['rect', 'path', 'line']
-    });
 
 
       new Browser({
@@ -164,8 +144,56 @@ export default class extends Component {
      fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/feature/variation/search?limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json&region=' + parsed.chr.substring(3) + '%3A' + parsed.start + '-' + parsed.end)
       .then(response =>  response.json())
       .then(variation => {
+        console.log("variation");
         console.log(variation);
+        this.setState({variation});
+       
      });
+
+
+     fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/genomic/region/' + parsed.chr.substring(3) + '%3A' + parsed.start + '-' + parsed.end + '/sequence?assembly=grch38&limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json&strand=1')
+      .then(response =>  response.json())
+      .then(seq => {
+        let sequence = seq.response[0].result[0].sequence;
+        this.setState({sequence})
+        let variation = this.state.variation;
+
+        const parsed = queryString.parse(location.search);
+        let snvSeq = [];
+        variation.response[0].result.forEach(function(snp, i) {
+          console.log('test');
+         snvSeq[i] = {x: snp.start - parsed.start, y: snp.end - parsed.start, description: snp.id + ' | ' + snp.reference + '>' + snp.alternate + ' | ' + snp.type }
+       });
+        console.log(snvSeq);
+
+
+       var ft = new FeatureViewer(sequence,
+                           '#peptideGraph',
+                            {
+                                showAxis:     true,
+                                showSequence: true,
+                                brushActive:  true, //zoom
+                                toolbar:      true, //current zoom & mouse position
+                                bubbleHelp:   true, 
+                                zoomMax:      10 //define the maximum range of the zoom
+                            });
+
+
+
+
+      ft.addFeature({
+        data: snvSeq,
+        name: "SNVs",
+        className: "SNVs", //can be used for styling
+        color: "#0F8292",
+        type: "rect" // ['rect', 'path', 'line']
+      });
+
+     });
+
+
+
+  
 
 }
 
@@ -463,7 +491,7 @@ export default class extends Component {
         <Colxx className="headCard " xxs="4">
           <Card style={{padding: 5}}> 
             <div className="headTitle">
-              Evidence 
+              Onthology 
             </div>
             <div className="headContent" >
               PhastCons: {parseFloat(this.state.avgPhastcons).toFixed(3)}<br/>
@@ -492,14 +520,14 @@ export default class extends Component {
         {graphic2}
 
         {this.state.showSettings && settingsTab}
-        {this.state.showSettings && phastCons}
 
 
 
         </Row>
 
         <Row>
-        <Colxx xxs="12" style={{height: 50}}>
+        <Colxx xxs="12">
+             <Colxx xxs="12" style={{float: "left"}}>
              <Chart
                   options={{
                   chart: {
@@ -522,6 +550,7 @@ export default class extends Component {
                       sizeOffset: 4
                     }
                   },
+    
                 }}
                 series={[
                   {
@@ -531,8 +560,10 @@ export default class extends Component {
                 ]}
                 type="line"
                 width="100%"
-                height="250"
+                height="200"
              />
+             </Colxx>
+             <Colxx xxs="12" style={{float: "right"}}>
 
              <Chart
                   options={{
@@ -565,215 +596,10 @@ export default class extends Component {
                 ]}
                 type="line"
                 width="100%"
-                height="250"
+                height="200"
              />
+        </Colxx>
 
-              <ReactApexChart options={this.state.options} series={[
-    {
-      name: "Series 1",
-      data: [{
-        x: 'W1',
-        y: 22
-      }, {
-        x: 'W2',
-        y: 29
-      }, {
-        x: 'W3',
-        y: 13
-      }, {
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W1',
-        y: 22
-      }, {
-        x: 'W2',
-        y: 29
-      }, {
-        x: 'W3',
-        y: 13
-      }, {
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W1',
-        y: 22
-      }, {
-        x: 'W2',
-        y: 29
-      }, {
-        x: 'W3',
-        y: 13
-      }, {
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },]
-    },
-    {
-      name: "Series 3",
-      data: [{
-        x: 'W1',
-        y: 22
-      }, {
-        x: 'W2',
-        y: 29
-      }, {
-        x: 'W3',
-        y: 13
-      }, {
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W1',
-        y: 22
-      }, {
-        x: 'W2',
-        y: 29
-      }, {
-        x: 'W3',
-        y: 13
-      }, {
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W1',
-        y: 22
-      }, {
-        x: 'W2',
-        y: 29
-      }, {
-        x: 'W3',
-        y: 13
-      }, {
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },{
-        x: 'W4',
-        y: 32
-      },]
-    },
-    {
-      name: "Series 2",
-      data: [{
-        x: 'W1',
-        y: 43
-      }, {
-        x: 'W2',
-        y: 43
-      }, {
-        x: 'W3',
-        y: 43
-      }, {
-        x: 'W4',
-        y: 43
-      }]
-    }
-  ]} type="heatmap" height="150" />
 
 
         </Colxx>
