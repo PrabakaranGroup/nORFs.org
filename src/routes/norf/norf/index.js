@@ -30,13 +30,16 @@ export default class extends Component {
       stop        : '',
       showSettings: false,
 
-      sequence    : '',
-      variation   : [],
-      avgPhyloP   : [],
-      phyloP      : [],
-      avgPhastcons: [],
-      phastCons   : [],
-      nTranscripts: [],
+      sequence        : '',
+      avgGerp         : [],
+      variation       : [],
+      avgPhyloP       : [],
+      phyloP          : [],
+      avgPhastcons    : [],
+      phastCons       : [],
+      nTranscripts    : [],
+      transcriptName  : [],
+
 
       options: {
         chart: {
@@ -137,9 +140,21 @@ export default class extends Component {
      fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/feature/gene/search?limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json&region=' + parsed.chr.substring(3) + '%3A' + parsed.start + '-' + parsed.end)
       .then(response =>  response.json())
       .then(apiData => {
+        console.log("apiData");
         console.log(apiData);
-       this.setState({nTranscripts : apiData.response[0].numResults})
+       this.setState({nTranscripts : apiData.response[0].numResults, transcriptName : apiData.response[0].result[0].id})
      });
+
+      fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/genomic/region/' + parsed.chr.substring(3) + '%3A' + parsed.start + '-' + parsed.end + '/conservation?limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json' )
+      .then(response =>  response.json())
+      .then(consData => {
+         console.log("consData");
+         console.log(consData);
+         const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
+         let avgGerp = average(consData.response[0].result[0].values);
+         this.setState({ avgGerp }); 
+     });
+
 
      fetch('https://bioinfo.hpc.cam.ac.uk/cellbase/webservices/rest/v4/hsapiens/feature/variation/search?limit=-1&skip=-1&skipCount=false&count=false&Output%20format=json&region=' + parsed.chr.substring(3) + '%3A' + parsed.start + '-' + parsed.end)
       .then(response =>  response.json())
@@ -147,7 +162,6 @@ export default class extends Component {
         console.log("variation");
         console.log(variation);
         this.setState({variation});
-       
      });
 
 
@@ -491,20 +505,22 @@ export default class extends Component {
         <Colxx className="headCard " xxs="4">
           <Card style={{padding: 5}}> 
             <div className="headTitle">
-              Onthology 
+              Conservation 
             </div>
             <div className="headContent" >
               PhastCons: {parseFloat(this.state.avgPhastcons).toFixed(3)}<br/>
               PhyloP:  {parseFloat(this.state.avgPhyloP).toFixed(3)}<br/>
-              Transcripts: {this.state.nTranscripts} 
+              Gerp:  {parseFloat(this.state.avgGerp).toFixed(3)}<br/>
             </div>
           </Card>
         </Colxx>
         <Colxx className="headCard" xxs="4">
           <Card style={{padding: 5}}> 
-            <div className="headTitle">
-              Settings 
+            
+             <div className="headContent" >
+                  Transcript Name: {this.state.transcriptName} 
             </div>
+
             </Card>
             <Colxx style={{height: 76, padding: 15, paddingLeft: 0}}>
             {this.state.showSettings ?
@@ -596,7 +612,7 @@ export default class extends Component {
                 ]}
                 type="line"
                 width="100%"
-                height="200"
+                height="180"
              />
         </Colxx>
 
