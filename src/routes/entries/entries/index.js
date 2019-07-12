@@ -14,7 +14,6 @@ import {Label, Input, FormGroup} from "reactstrap";
 import TextField from '@material-ui/core/TextField';
 
 
-
 firebase.initializeApp(firebaseConfig);
 const queryString = require('query-string');
 
@@ -24,8 +23,8 @@ export default class extends Component {
     this.state = {
       entries    : [],
       searchfield: '',
-      start      : 1,
-      end        : 1230122,
+      start      : 2130122,
+      end        : 2230122,
       chr        : "chr1",
       update     : 1,
       loading    : true,
@@ -39,9 +38,16 @@ export default class extends Component {
 
   onListenForMessages = () => {
     this.setState({ loading: true });
+    let startInt = parseInt(queryString.parse(location.search).start);
+    let endInt = parseInt(queryString.parse(location.search).end);
+    let chrString =  queryString.parse(location.search).chr;
+
+    console.log(startInt);
+    console.log(endInt);
+    console.log(chrString);
 
     this.unsubscribe = firebase.firestore().collection("nORFs")
-      .where("chr", "==", this.state.chr).where("start", ">", this.state.start).where("start", "<", this.state.end)
+      .where("chr", "==", chrString).where("start", ">", startInt).where("start", "<", endInt)
       .limit(20)
       .onSnapshot(snapshot => {
         if (snapshot.size) {
@@ -63,24 +69,16 @@ export default class extends Component {
   componentWillUnmount() {
   }
 
-
-
-
-
-
   searchHandle1(input) {
     let search = input;
+    this.setState({searchfield : input});
     let searchExp = /(chr|CHR)*\s*([0-9]{1,2}|X|Y|MT)\s*(-|:)?\s*(\d+)\s*(MB|M|K|)?\s*(-|:|)?\s*(\d+|)\s*(MB|M|K|)?/.exec(search);
 
     let chr     = 'chr' + searchExp[2];
     let start   = parseInt(searchExp[4]);
     let end     = parseInt(searchExp[7]);
-    console.log(chr, start, end);
-    console.log(this.state.entries);
-    console.log("searchHandle complete");
+
     this.setState({chr, start, end});
-    this.onListenForMessages();
-   
   }
 
   convertArrayOfObjectsToCSV(args) {
@@ -106,11 +104,6 @@ export default class extends Component {
       return result;
   }
 
-  updateSearchfield(input) {
-    console.log(input);
-    this.setState({searchfield : input});
-  }
-
   exportEntries() {
           let data, filename, link;
           let csv = this.convertArrayOfObjectsToCSV({
@@ -129,6 +122,7 @@ export default class extends Component {
   }
 
   render() {
+
     let entryStore =  this.state.entries.map((entry) =>
                         <EntryElement
                           key   = {'entry' + entry.id}
@@ -150,21 +144,26 @@ export default class extends Component {
           <Colxx xxs="5" >
              <TextField
                 style={{ margin: 8 }}
-                placeholder="chr1:881023-8"
+                placeholder="chr1:881023-1120120"
                 fullWidth
                 autoFocus
                 id="searchInput"
-                onChange={(event) => this.setState({searchfield: event.target.value})}
-                onKeyPress={(e) => {(e.key === 'Enter' ? this.searchHandle1(event.target.value) : null)}}
+                onChange={(event) => {this.searchHandle1(event.target.value)}}
               />
           </Colxx>
 
           <Colxx xxs="3">
-              <Button style={{marginRight: "5px"}} color="info" className="default mb-2" onClick={() => {this.searchHandle1(this.state.searchfield);this.setState({update: this.state.update+1})}} >
+             <NavLink to={'entries?start=' + this.state.start + 
+                   '&end='  + this.state.end  + 
+                   '&chr='   + this.state.chr } onClick={() => {this.forceReload()}}>
+              <Button style={{marginRight: "5px"}} color="info" className="default mb-2" >
                   search
               </Button>
+              </NavLink> 
+
               {this.state.entries.length != 0 ? 
-              <Button color="warning" className="default mb-2" onClick={() => {this.exportEntries();}} >
+              
+                   <Button color="warning" className="default mb-2" onClick={() => {this.exportEntries()}} >
                   export
               </Button>
               : null}
