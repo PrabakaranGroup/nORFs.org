@@ -24,55 +24,52 @@ export default class extends Component {
     this.state = {
       entries    : [],
       searchfield: '',
+      start      : 1,
+      end        : 1230122,
+      chr        : "chr1",
+      update     : 1,
       loading    : true,
-      start      : 1923192,
-      end        : 2043192,
-      chr        : "chr1"
     }
   }
 
-  componentWillMount(){
-    let entries = [];
-    firebase.firestore().collection("nORFs").where("chr", "==", this.state.chr).where("start", ">", this.state.start).where("start", "<", this.state.end).limit(200)
-                        .get().then(function(data) {
-                                                      data.forEach(function(doc) {
-                                                          entries.push(doc.data());
-                                                      })
-                                                      }).catch(function(error) {
-                                                        console.log("Error retrieving document:", error);
-                                                    });
 
-    this.setState({
-      entries     : entries,
-      loading     : false
-    });
+  componentDidMount() {
+    this.onListenForMessages();
+  }
 
-    console.log("componentWillMount complete");
+  onListenForMessages = () => {
+    this.setState({ loading: true });
+
+    this.unsubscribe = firebase.firestore().collection("nORFs")
+      .where("chr", "==", this.state.chr).where("start", ">", this.state.start).where("start", "<", this.state.end)
+      .limit(20)
+      .onSnapshot(snapshot => {
+        if (snapshot.size) {
+          let entries = [];
+          snapshot.forEach(doc =>
+            entries.push({ ...doc.data() }),
+          );
+
+          this.setState({
+            entries: entries.reverse(),
+            loading: false,
+          });
+        } else {
+          this.setState({ entries: null, loading: false });
+        }
+      });
+  };
+
+  componentWillUnmount() {
   }
 
 
-    componentDidUpdate(prevProps, prevState, snapshot){
-      if(this.state.chr !== prevState.chr || this.state.start !== prevState.start || this.state.end !== prevState.end){
-        let entries = [];
-        firebase.firestore().collection("nORFs").where("chr", "==", this.state.chr).where("start", ">", this.state.start).where("start", "<", this.state.end).limit(200)
-                                                .get().then(function(data) {
-          data.forEach(function(doc) {
-              entries.push(doc.data());
-          })
-          }).catch(function(error) {
-            console.log("Error retrieving document:", error);
-        });
-        this.setState({
-          entries     : entries,
-          loading     : false
-        });
-        console.log("componentDidUpdate complete");
-      }
-  }
 
-  searchHandle() {
-    console.log(document.getElementById('searchInput').value);
-    let search = document.getElementById('searchInput').value;
+
+
+
+  searchHandle1(input) {
+    let search = input;
     let searchExp = /(chr|CHR)*\s*([0-9]{1,2}|X|Y|MT)\s*(-|:)?\s*(\d+)\s*(MB|M|K|)?\s*(-|:|)?\s*(\d+|)\s*(MB|M|K|)?/.exec(search);
 
     let chr     = 'chr' + searchExp[2];
@@ -82,36 +79,8 @@ export default class extends Component {
     console.log(this.state.entries);
     console.log("searchHandle complete");
     this.setState({chr, start, end});
-
-    let entries = [];
-    firebase.firestore().collection("nORFs").where("chr", "==", this.state.chr).where("start", ">", this.state.start).where("start", "<", this.state.end).limit(200)
-                        .get().then(function(data) {
-                                                      data.forEach(function(doc) {
-                                                          entries.push(doc.data());
-                                                      })
-                                                      }).catch(function(error) {
-                                                        console.log("Error retrieving document:", error);
-                                                    });
-
-    this.setState({
-      entries     : entries,
-      loading     : false
-    });
-
-  }
-
-
-  searchHandle1() {
-    let search = this.state.searchfield;
-    let searchExp = /(chr|CHR)*\s*([0-9]{1,2}|X|Y|MT)\s*(-|:)?\s*(\d+)\s*(MB|M|K|)?\s*(-|:|)?\s*(\d+|)\s*(MB|M|K|)?/.exec(search);
-
-    let chr     = 'chr' + searchExp[2];
-    let start   = parseInt(searchExp[4]);
-    let end     = parseInt(searchExp[7]);
-    console.log(chr, start, end);
-    console.log(this.state.entries);
-    console.log("searchHandle complete");
-    this.setState({chr, start, end});
+    this.onListenForMessages();
+   
   }
 
   convertArrayOfObjectsToCSV(args) {
@@ -137,7 +106,10 @@ export default class extends Component {
       return result;
   }
 
-
+  updateSearchfield(input) {
+    console.log(input);
+    this.setState({searchfield : input});
+  }
 
   exportEntries() {
           let data, filename, link;
@@ -157,28 +129,17 @@ export default class extends Component {
   }
 
   render() {
-
-  
-
-    let entryStore = this.state.entries && this.state.entries.map((entry, i) =>
+    let entryStore =  this.state.entries.map((entry) =>
                         <EntryElement
-                          key = {'entry' + i}
-                          id = {entry.id}
-                          chr = {entry.chr}
+                          key   = {'entry' + entry.id}
+                          id    = {entry.id}
+                          chr   = {entry.chr}
                           start = {entry.start}
-                          end = {entry.end}
+                          end   = {entry.end}
                           aaseq = {entry.AAseq}
                           width = {entry.width}
                         />
                         );
-
-
-    const parsed = queryString.parse(location.search);
-
-    const loader = this.state.loading ? <p> loading </p> : entryStore;
-
-  
-
 
     return (
       <Fragment>
@@ -189,22 +150,17 @@ export default class extends Component {
           <Colxx xxs="5" >
              <TextField
                 style={{ margin: 8 }}
-                placeholder="Chr1:1-1239129"
+                placeholder="chr1:881023-8"
                 fullWidth
-                margin="normal"
+                autoFocus
                 id="searchInput"
-                onChange={(event) => this.setState({searchfield : event.target.value})}
-                onKeyPress={(e) => {(e.key === 'Enter' ? this.searchHandle1() : null)}}
-                InputLabelProps={{
-                  shrink: true,
-                }}
+                onChange={(event) => this.setState({searchfield: event.target.value})}
+                onKeyPress={(e) => {(e.key === 'Enter' ? this.searchHandle1(event.target.value) : null)}}
               />
-
-
           </Colxx>
 
           <Colxx xxs="3">
-               <Button style={{marginRight: "5px"}} color="info" className="default mb-2" onClick={() => {this.searchHandle1();}} >
+              <Button style={{marginRight: "5px"}} color="info" className="default mb-2" onClick={() => {this.searchHandle1(this.state.searchfield);this.setState({update: this.state.update+1})}} >
                   search
               </Button>
               {this.state.entries.length != 0 ? 
@@ -215,7 +171,7 @@ export default class extends Component {
           </Colxx>
              
         
-          </Row>
+       </Row>
     
           </div>
           </Colxx>

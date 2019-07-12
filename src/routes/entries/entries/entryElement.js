@@ -18,7 +18,7 @@ class EntryElement extends React.Component {
     const element =
          <NavLink to={'/norf?start=' + this.props.start + 
          				   '&end='  + this.props.end  + 
-         				   '&chr='   + this.props.chr }>
+         				   '&chr='   + this.props.chr } key= {'key' + start + stop}>
     		
     		<div className="dataChild divFadeIn" key={'dataChild' + start + stop}>
 	           <div className="col-sm-9 description">
