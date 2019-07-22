@@ -56,10 +56,7 @@ export default class extends Component {
     const parsed = queryString.parse(location.search);
     this.setState({chr: parsed.chr.substring(3), start: parsed.start, stop: parsed.end})
 
-
-
-
-      new Browser({
+    new Browser({
     chr       : parsed.chr.substring(3),
     viewStart : parseInt(parsed.start)-2000,
     viewEnd   : parseInt(parsed.end)+2000,
@@ -175,11 +172,12 @@ export default class extends Component {
         const parsed = queryString.parse(location.search);
         let snvSeq = [];
         variation.response[0].result.forEach(function(snp, i) {
-          console.log('test');
-         snvSeq[i] = {x: snp.start - parsed.start, y: snp.end - parsed.start, description: snp.id + ' | ' + snp.reference + '>' + snp.alternate + ' | ' + snp.type }
+         if(typeof snp.id === 'undefined'){
+          snvSeq[i] = {x: snp.start - parsed.start, y: snp.end - parsed.start, description: 'undefined | ' + snp.reference + '>' + snp.alternate + ' | ' + snp.type }
+         } else {
+          snvSeq[i] = {x: snp.start - parsed.start, y: snp.end - parsed.start, description: snp.id + ' | ' + snp.reference + '>' + snp.alternate + ' | ' + snp.type }
+         }
        });
-        console.log(snvSeq);
-
 
        var ft = new FeatureViewer(sequence,
                            '#peptideGraph',
