@@ -14,13 +14,14 @@ class EntryElement extends React.Component {
     const aaseq   = <div key={'AAseq'    + this.props.aaseq}> {this.props.aaseq}    </div>;
     const width   = <div key={'width'    + this.props.width}> {this.props.width}    </div>;
 
+    const complete = chr && start && end && id && aaseq && width;
 
     const element =
          <NavLink to={'/norf?start=' + this.props.start + 
          				   '&end='  + this.props.end  + 
          				   '&chr='   + this.props.chr } key= {'key' + start + stop}>
     		
-    		<div className="dataChild divFadeIn" key={'dataChild' + start + stop}>
+    		  <div className="dataChild divFadeIn entryTile" key={'dataChild' + start + stop}>
 	           <div className="col-sm-9 description">
              <div className="upperTileText">id: {id} </div> 
 	     			 <div className="upperTileText">chr:  {chr}   </div>
@@ -35,7 +36,7 @@ class EntryElement extends React.Component {
 
   return (
 	  <div>
-	  	{element} 
+	  	{complete && element} 
 	  </div>
   ); 
 };

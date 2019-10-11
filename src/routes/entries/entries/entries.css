@@ -27,6 +27,10 @@
   padding: 200px;
 }
 
+.entryTile {
+  overflow:  hidden;
+}
+
 .middlesSearch {
 	margin-left: 30%;
 }
