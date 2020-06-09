@@ -53,7 +53,7 @@
     "apexcharts": "^3.8.1",
     "classnames": "2.2.6",
     "feature-viewer": "^0.1.44",
-    "firebase": "^5.8.4",
+    "firebase": "7.14.2",
     "jquery": "^3.3.1",
     "pileup": "^0.6.10",
     "popover": "^2.4.1",

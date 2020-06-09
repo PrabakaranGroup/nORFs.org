@@ -25,6 +25,8 @@ export default class extends Component {
                   <SubHero title={"title"} detail={"subtitle"} />
                 </Container>
 
+                
+
               </div>
 
         
@@ -33,6 +35,9 @@ export default class extends Component {
           
                 <Colxx xxs="12" lg={{ size: 6, offset: 0 }} className="side-bar">
                 <h2>Contact Us</h2>
+
+                <p>Version 1.0, year 2020. <br/> Please cite norfs.org in your publication and please contact us for any questions regarding the database and for permissions to use.</p> 
+
 
                 <Card style={{padding: "20px"}}>
                       <Row>
@@ -57,8 +62,9 @@ export default class extends Component {
                       <Colxx xxs="10" lg="4">
                       <Card style={{padding: "20px", height: "100%"}}>
                       <p className="text-primary mb-2">Maintainer</p>
-                      <p className="mb-0">Robin Kohze</p>
-                      <p className="mb-5">rk581@cam.ac.uk</p>
+                      <p className="mb-0">Sudhakaran Prabakaran</p>
+                      <p className="mb-5">sp339@cam.ac.uk</p>
+
                       </Card>
                       </Colxx>
 

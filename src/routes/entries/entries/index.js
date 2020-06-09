@@ -138,6 +138,7 @@ export default class extends Component {
     return (
       <Fragment>
         <Row>
+        <Colxx xxs="12" style={{backgroundColor: 'orange', padding: 15, margin: 10, marginTop: 0}}> Due to our modern https infrastructure, our data partner Cellbase currently faces certificate issues. If you see a certificate popup, just click "X" to resolve the issue. We are currently resolving the issue.  </Colxx>
         <Colxx xxs="8" className="middlesSearch">
         <div>
         <Row>

@@ -48,10 +48,6 @@ headCard2 {
 	visibility: hidden;
 }
 
-.btn-group.pull-right:first-of-type {
-	display: none;
-}
-
 
 .loc-field {
 	height: 30px;

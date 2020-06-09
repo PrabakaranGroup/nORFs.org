@@ -40,7 +40,7 @@ export default class SectionPricingComparison extends React.Component {
                                         Mass Spec Evidence
                                     </p>
                                     <p className="mb-0 text-primary w-20 w-xs-100 text-center">
-                                        <i className="simple-icon-check"></i>
+                                        <i style={{color: 'rgba(250,0,0,0.3'}} className="simple-icon-check"></i>
                                     </p>
                                     <p className="mb-0 text-primary w-20 w-xs-100 text-center">
                                         <i className="simple-icon-check"></i>
@@ -63,7 +63,7 @@ export default class SectionPricingComparison extends React.Component {
                                         <i className="simple-icon-check"></i>
                                     </p>
                                     <p className="mb-0 text-primary w-20 w-xs-100 text-center">
-
+                                         <i style={{color: 'rgba(250,0,0,0.3'}} className="simple-icon-check"></i>
                                     </p>
                                     <p className="mb-0 text-primary w-20 w-xs-100 text-center">
                                         <i className="simple-icon-check"></i>

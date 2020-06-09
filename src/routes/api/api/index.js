@@ -43,129 +43,46 @@ export default class extends Component {
   render() {
     return (
       <Fragment>
-      <Colxx xxs="12" className="mb-4" >
-            <Card style={{margin: "-15px"}}>
-
+      
+      <Row>
+      <Colxx xxs="8" className="mb-4" >
+            <Card >
              <CardBody>
-            <h3 className="mb-4"> The nORFs.org API </h3>
-            <p> To accomodate programmatic access to the nORFs.org database and functionality, the following API
-            commands can be used to fetch data. </p>
+            <h3 className="mb-4"> nORFs.org Database Access </h3>
+            <p> To accomodate programmatic access to the nORFs.org database and functionality, we provide all our data via direct download, UCSC track (annotationhub) and API. 
+              The nORFs.org database has a open source MIT license and grants every user the right to download, edit, modify or redistribute only requires to include the original license file.</p>
+            <p>All coordinate are in GRCh38. </p>
+            <p> See https://github.com/PrabakaranGroup/nORF-data-prep for the fully reproducible code to generate these files.</p>
+<br></br>
 
-            <p style={{color: "red"}}> This section is corrently under construction and thus contains placeholder text </p>
             </CardBody>
             </Card>
       </Colxx>
-        <Row>
-          <Colxx xxs="12" className="mb-4">
-            <Card>
-              <CardBody>
 
-                <Fragment>
-                  <div className="border">
-                    <Button
-                      block
-                      color="link"
-                      className="text-left"
-                      onClick={() => this.toggleAccordion(0)}
-                      aria-expanded={this.state.accordion[0]}
-                    >
-                      Fetch Regions
-                    </Button>
-                    <Collapse isOpen={this.state.accordion[0]}>
-                      <div className="p-4">
-                        1. Anim pariatur cliche reprehenderit, enim eiusmod high life
-                        accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-                        cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                        on it squid single-origin coffee nulla assumenda shoreditch et.
-                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                        lomo. Leggings occaecat craft beer farm-to-table, raw denim
-                        aesthetic synth nesciunt you probably haven't heard of them
-                        accusamus labore sustainable VHS.
-                    </div>
-                    </Collapse>
-                  </div>
-                  <div className="border">
-                    <Button
-                      block
-                      color="link"
-                      className="text-left"
-                      onClick={() => this.toggleAccordion(1)}
-                      aria-expanded={this.state.accordion[1]}
-                    >
-                      Acquire Genetic Details
-                    </Button>
-                    <Collapse isOpen={this.state.accordion[1]}>
-                      <div className="p-4">
-                        2. Anim pariatur cliche reprehenderit, enim eiusmod high life
-                        accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-                        cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                        on it squid single-origin coffee nulla assumenda shoreditch et.
-                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                        lomo. Leggings occaecat craft beer farm-to-table, raw denim
-                        aesthetic synth nesciunt you probably haven't heard of them
-                        accusamus labore sustainable VHS.
-                    </div>
-                    </Collapse>
-                  </div>
-                  <div className="border">
-                    <Button
-                      block
-                      color="link"
-                      className="text-left"
-                      onClick={() => this.toggleAccordion(2)}
-                      aria-expanded={this.state.accordion[2]}
-                    >
-                      Get Genetic Environment
-                    </Button>
-                    <Collapse isOpen={this.state.accordion[2]}>
-                      <div className="p-4">
-                        3. Anim pariatur cliche reprehenderit, enim eiusmod high life
-                        accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-                        cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                        on it squid single-origin coffee nulla assumenda shoreditch et.
-                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                        lomo. Leggings occaecat craft beer farm-to-table, raw denim
-                        aesthetic synth nesciunt you probably haven't heard of them
-                        accusamus labore sustainable VHS.
-                    </div>
-                    </Collapse>
-                  </div>
-                   <div className="border">
-                    <Button
-                      block
-                      color="link"
-                      className="text-left"
-                      onClick={() => this.toggleAccordion(3)}
-                      aria-expanded={this.state.accordion[3]}
-                    >
-                      Fetch Annotations
-                    </Button>
-                    <Collapse isOpen={this.state.accordion[3]}>
-                      <div className="p-4">
-                        3. Anim pariatur cliche reprehenderit, enim eiusmod high life
-                        accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-                        cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                        on it squid single-origin coffee nulla assumenda shoreditch et.
-                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                        lomo. Leggings occaecat craft beer farm-to-table, raw denim
-                        aesthetic synth nesciunt you probably haven't heard of them
-                        accusamus labore sustainable VHS.
-                    </div>
-                    </Collapse>
-                  </div>
-                </Fragment>
-              </CardBody>
-            </Card>
-          </Colxx>
-        </Row>
+        <Colxx xxs="4" className="mb-4" > 
+      <Card><CardBody>  <h3> Database Download </h3> 
+      <br></br>
+      
+      <p>    nORFs_DB 1.1 (.gtf): 
+        <a href='https://firebasestorage.googleapis.com/v0/b/phoenix-6686b.appspot.com/o/nORFsDB.1.1.gtf?alt=media&token=a3e41fe4-b1e5-4002-9384-b9d48bd5e25d' download>
+          <b> Download </b>
+        </a>  </p>
+        <p>    nORFs_DB 1.1 (.bed): 
+        <a href='https://firebasestorage.googleapis.com/v0/b/phoenix-6686b.appspot.com/o/nORFsDB.1.1.bed?alt=media&token=044a4750-6704-425c-988c-fe1bbc38d3b6' download>
+          <b> Download </b>
+        </a>  </p>
+        <p>    nORFs_DB Classification 1.1 (.gtf): 
+        <a href='https://firebasestorage.googleapis.com/v0/b/phoenix-6686b.appspot.com/o/nORFsDB.1.1.classification.tsv?alt=media&token=2c60916b-92ab-41a0-abe1-7519ccd1552c' download>
+          <b> Download </b>
+        </a>  </p>
+        <p>    nORFs_DB 1.1 UCSC track  (.bed): 
+        <a href='https://firebasestorage.googleapis.com/v0/b/phoenix-6686b.appspot.com/o/nORFs_1.1_UCSC.bed?alt=media&token=deb7fa57-6036-4132-9414-35337c3a0309' download>
+          <b> Download </b>
+        </a>  </p>
+        </CardBody></Card>
+      </Colxx> 
+      </Row>
+      
       </Fragment>
     );
   }

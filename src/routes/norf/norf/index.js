@@ -486,6 +486,7 @@ export default class extends Component {
     return (
       <Fragment>
         <Row >
+        <Colxx xxs="12" style={{backgroundColor: 'orange', padding: 15, margin: 15, marginBottom: 20, marginTop: 0}}> Due to our modern https infrastructure, our data partner Cellbase currently faces certificate issues. If you see a certificate popup, just click "X" to resolve the issue. We are currently resolving the issue.  </Colxx>
 
         <Colxx className="headCard" xxs="4">
           <Card style={{padding: 5}}> 
@@ -524,7 +525,7 @@ export default class extends Component {
             {this.state.showSettings ?
              <Button style={{padding: 20 }} color="info" className="default mb-2" onClick={() => {this.setState({showSettings : !this.state.showSettings});}}>Gene Explorer</Button>
              :
-             <Button style={{padding: 20 }} color="info" className="default mb-2" onClick={() => {this.setState({showSettings : !this.state.showSettings});}}>Additional Annotations </Button>
+             <Button style={{padding: 20 }} color="info" className="default mb-2" >Additional Annotations (under development) </Button>
             }
             </Colxx>
         </Colxx>
