@@ -50,7 +50,7 @@
   "dependencies": {
     "@material-ui/core": "^4.2.0",
     "@material-ui/icons": "^4.2.1",
-    "apexcharts": "^3.8.1",
+    "apexcharts": "^3.24.0",
     "classnames": "2.2.6",
     "feature-viewer": "^0.1.44",
     "firebase": "7.14.2",
